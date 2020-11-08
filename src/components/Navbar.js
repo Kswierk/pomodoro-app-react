@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+
+import SettingsModal from "./SettingsModal";
 
 const StyledNav = styled.nav`
   display: flex;
@@ -18,26 +20,39 @@ const StyledLi = styled.li`
   list-style: none;
 `;
 
-const StyledLink = styled.a`
-  text-decoration: none;
+const StyledNavButton = styled.button`
   padding: 7px 30px;
   margin: 0 20px;
   background-color: #eee;
+  border: none;
   border-radius: 4px;
   font-size: 0.8rem;
+  cursor: pointer;
 `;
 
-const Navbar = () => (
-  <StyledNav>
-    <div>PomodoroFocused</div>
-    <StyledUl>
-      <StyledLi>
-        <StyledLink href="#">settings</StyledLink>
-      </StyledLi>
-      <StyledLi>
-        <StyledLink href="#">login</StyledLink>
-      </StyledLi>
-    </StyledUl>
-  </StyledNav>
-);
+const Navbar = () => {
+  const [isModalOpened, setIsModalOpened] = useState(false);
+
+  const toggleSettingsModal = () => setIsModalOpened(!isModalOpened);
+  return (
+    <>
+      {isModalOpened ? (
+        <SettingsModal toggleBackdrop={toggleSettingsModal} />
+      ) : null}
+      <StyledNav>
+        <div>PomodoroFocused</div>
+        <StyledUl>
+          <StyledLi>
+            <StyledNavButton onClick={toggleSettingsModal}>
+              settings
+            </StyledNavButton>
+          </StyledLi>
+          <StyledLi>
+            <StyledNavButton>login</StyledNavButton>
+          </StyledLi>
+        </StyledUl>
+      </StyledNav>
+    </>
+  );
+};
 export default Navbar;

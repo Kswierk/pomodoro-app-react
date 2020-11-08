@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Wraper = styled.div`
@@ -48,6 +48,17 @@ const Goal = styled.p`
 `;
 
 const Timer = () => {
+  const [isTimerActive, setIsTimerActive] = useState(false);
+
+  const [workTime, setWorkTime] = useState(1500);
+
+  const toggleClockHandler = () => {
+    console.log("start");
+  };
+  const resetClockHandler = () => {
+    console.log("reset");
+  };
+
   return (
     <>
       <Wraper>
@@ -56,10 +67,10 @@ const Timer = () => {
           <TimerSwitchButton>short break</TimerSwitchButton>
           <TimerSwitchButton>long break</TimerSwitchButton>
         </ButtonsWraper>
-        <Time>0000</Time>
+        <Time>{workTime}</Time>
         <StartStopButtonsWraper>
-          <StartStopButton>start</StartStopButton>
-          <StartStopButton>reset</StartStopButton>
+          <StartStopButton onClick={toggleClockHandler}>start</StartStopButton>
+          <StartStopButton onClick={resetClockHandler}>reset</StartStopButton>
         </StartStopButtonsWraper>
       </Wraper>
       <Goal>time to work</Goal>
