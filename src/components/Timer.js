@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useInterval } from "../hooks/useInterval";
+
+import { TimerContext } from "../context/TimerContext";
+import { ResetTimeContext } from "../context/ResetTimeContext";
 
 const Wraper = styled.div`
   max-width: 500px;
@@ -48,15 +52,48 @@ const Goal = styled.p`
 `;
 
 const Timer = () => {
+  const [sessionTimeSet, setTimeSessionSet] = useContext(TimerContext);
+  const [pickedTimeSet, setPickedTimeSet] = useContext(ResetTimeContext);
+  const [delay, setDelay] = useState(null);
   const [isTimerActive, setIsTimerActive] = useState(false);
 
-  const [workTime, setWorkTime] = useState(1500);
+  const decrementTime = () => {
+    setPickedTimeSet(pickedTimeSet - 1);
+    console.log(pickedTimeSet);
+  };
+
+  useInterval(() => {
+    decrementTime();
+    console.log(sessionTimeSet);
+    calculateTimeLeft();
+  }, delay);
+
+  const calculateTimeLeft = () => {
+    let result = "";
+    const seconds = pickedTimeSet % 60;
+    const minutes = parseInt(pickedTimeSet / 60) % 60;
+    function addLeadingZeroes(time) {
+      return time < 10 ? `0${time}` : time;
+    }
+    result += `${addLeadingZeroes(minutes)}:${addLeadingZeroes(seconds)}`;
+    console.log(pickedTimeSet);
+    return result;
+  };
 
   const toggleClockHandler = () => {
-    console.log("start");
+    setIsTimerActive(true);
+    setDelay(1000);
+    if (isTimerActive) {
+      setDelay(null);
+      setIsTimerActive(false);
+    }
   };
+
   const resetClockHandler = () => {
-    console.log("reset");
+    setPickedTimeSet(sessionTimeSet);
+    // console.log(pickedTimeSet);
+    setIsTimerActive(false);
+    setDelay(null);
   };
 
   return (
@@ -67,9 +104,11 @@ const Timer = () => {
           <TimerSwitchButton>short break</TimerSwitchButton>
           <TimerSwitchButton>long break</TimerSwitchButton>
         </ButtonsWraper>
-        <Time>{workTime}</Time>
+        <Time>{calculateTimeLeft()}</Time>
         <StartStopButtonsWraper>
-          <StartStopButton onClick={toggleClockHandler}>start</StartStopButton>
+          <StartStopButton onClick={toggleClockHandler}>
+            {isTimerActive ? "stop" : "start"}
+          </StartStopButton>
           <StartStopButton onClick={resetClockHandler}>reset</StartStopButton>
         </StartStopButtonsWraper>
       </Wraper>

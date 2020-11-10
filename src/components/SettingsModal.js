@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
+import { TimerContext } from "../context/TimerContext";
+import { ResetTimeContext } from "../context/ResetTimeContext";
 
 import Backdrop from "./Backdrop";
 
@@ -95,8 +97,8 @@ const Slider = styled.span`
   right: 0;
   bottom: 0;
   background-color: ${(props) => (props.switched ? "#ff6347" : "#ccc")};
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
   border-radius: 34px;
 
   &::before {
@@ -120,6 +122,7 @@ const SaveButtonWraper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 0 0 4px 4px;
 `;
 
 const SaveButton = styled.button`
@@ -131,10 +134,9 @@ const SaveButton = styled.button`
 `;
 
 const SettingsModal = (props) => {
+  const [sessionTimeSet, setTimeSessionSet] = useContext(TimerContext);
+  const setPickedTimeSet = useContext(ResetTimeContext)[1];
   const [isSwitchClicked, setIsSwitchClicked] = useState(false);
-  const [pomodoroTime, setPomodoroTime] = useState(25);
-  const [shortBreakTime, setShortBreakTime] = useState(5);
-  const [longBreakTime, setLongBreakTime] = useState(15);
 
   return (
     <>
@@ -143,7 +145,7 @@ const SettingsModal = (props) => {
         <ModalWraper>
           <h3>Settings</h3>
           <hr />
-          <h3>Time(minutes)</h3>
+          <h3>Set custom time(minutes)</h3>
           <FormWraper>
             <InputsWraper>
               <StyledLabel>Pomodoro</StyledLabel>
@@ -151,10 +153,10 @@ const SettingsModal = (props) => {
                 type="number"
                 name="pomodoro"
                 id="pomodoro"
-                defaultValue={pomodoroTime}
+                defaultValue={sessionTimeSet / 60}
                 onChange={(e) => {
-                  console.log(e.target.value);
-                  setPomodoroTime(e.target.value);
+                  setTimeSessionSet(e.target.value * 60);
+                  setPickedTimeSet(e.target.value * 60);
                 }}
               />
             </InputsWraper>
@@ -163,16 +165,12 @@ const SettingsModal = (props) => {
               <StyledInput
                 name="shortbreak"
                 id="shortbreak"
-                defaultValue={shortBreakTime}
+                defaultValue={10}
               />
             </InputsWraper>
             <InputsWraper>
               <StyledLabel>long break</StyledLabel>
-              <StyledInput
-                name="longbreak"
-                id="longbreak"
-                defaultValue={longBreakTime}
-              />
+              <StyledInput name="longbreak" id="longbreak" defaultValue={15} />
             </InputsWraper>
           </FormWraper>
           <div>
