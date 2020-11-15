@@ -2,10 +2,23 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Root from "./Root";
 import reportWebVitals from "./reportWebVitals";
+import { createStore, combineReducers } from "redux";
+import { Provider } from "react-redux";
+import pomodoro from "./store/reducers/pomodoro";
+import uiManagers from "./store/reducers/ui-managers";
+
+const rootReducer = combineReducers({
+  pomo: pomodoro,
+  ui: uiManagers,
+});
+
+const store = createStore(rootReducer);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Root />
+    <Provider store={store}>
+      <Root />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
