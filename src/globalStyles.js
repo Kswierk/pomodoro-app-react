@@ -5,7 +5,8 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding:0;
         box-sizing: border-box;
-        background-color: #ff6347;
+        background-color: #bc1212
+;
         font-family: 'Noto Sans JP', sans-serif;
     }
 `;

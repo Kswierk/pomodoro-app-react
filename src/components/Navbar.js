@@ -7,7 +7,8 @@ import SettingsModal from "./SettingsModal";
 
 const StyledNav = styled.nav`
   display: flex;
-  background-color: #ddd;
+  border-bottom: 1px solid #d55314;
+  color: #f3ecf1;
   justify-content: space-around;
   align-items: center;
   max-width: 700px;
@@ -25,7 +26,8 @@ const StyledLi = styled.li`
 const StyledNavButton = styled.button`
   padding: 7px 30px;
   margin: 0 20px;
-  background-color: #eee;
+  background-color: #386b1f;
+  color: #f3ecf1;
   border: none;
   border-radius: 4px;
   font-size: 0.8rem;

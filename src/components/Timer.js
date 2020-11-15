@@ -9,7 +9,7 @@ const Wraper = styled.div`
   max-width: 500px;
   margin: 0 auto;
   text-align: center;
-  background-color: rgba(200, 200, 200, 0.5);
+  background-color: rgba(230, 230, 230, 0.4);
   margin-top: 40px;
   display: flex;
   flex-direction: column;
@@ -23,16 +23,24 @@ const ButtonsWraper = styled.div`
 const TimerSwitchButton = styled.button`
   padding: 8px 20px;
   margin: 0 10px;
+  text-transform: capitalize;
   border: none;
   border-radius: 4px;
-  background-color: #ccc;
+  background-color: transparent;
+  color: #f3ecf1;
   cursor: pointer;
+  z-index: 30;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Time = styled.div`
   padding: 30px 0;
   font-size: 7rem;
   font-weight: 700;
+  color: #f3ecf1;
 `;
 
 const StartStopButtonsWraper = styled.div`
@@ -43,6 +51,20 @@ const StartStopButton = styled.button`
   padding: 8px 30px;
   margin: 0 10px 20px 10px;
   cursor: pointer;
+  background-color: transparent;
+  color: #f3ecf1;
+  border: 1px solid #f3ecf1;
+  border-radius: 4px;
+  transition: 0.2s ease-in-out;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Goal = styled.p`
@@ -155,7 +177,10 @@ const Timer = (props) => {
           <StartStopButton onClick={resetClockHandler}>reset</StartStopButton>
         </StartStopButtonsWraper>
       </Wraper>
-      <Goal>time to work</Goal>
+
+      <Goal>
+        {props.selectedTimer !== "pomodoro" ? "take a break" : "time to work"}
+      </Goal>
     </>
   );
 };
