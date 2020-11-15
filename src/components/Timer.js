@@ -1,15 +1,15 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState } from "react";
+import * as actionTypes from "../store/actions";
+
+import { connect } from "react-redux";
 import styled from "styled-components";
 import { useInterval } from "../hooks/useInterval";
-
-import { TimerContext } from "../context/TimerContext";
-import { ResetTimeContext } from "../context/ResetTimeContext";
 
 const Wraper = styled.div`
   max-width: 500px;
   margin: 0 auto;
   text-align: center;
-  background-color: #eee;
+  background-color: rgba(200, 200, 200, 0.5);
   margin-top: 40px;
   display: flex;
   flex-direction: column;
@@ -51,32 +51,33 @@ const Goal = styled.p`
   font-size: 1.4rem;
 `;
 
-const Timer = () => {
-  const [sessionTimeSet, setTimeSessionSet] = useContext(TimerContext);
-  const [pickedTimeSet, setPickedTimeSet] = useContext(ResetTimeContext);
+const Timer = (props) => {
   const [delay, setDelay] = useState(null);
   const [isTimerActive, setIsTimerActive] = useState(false);
 
   const decrementTime = () => {
-    setPickedTimeSet(pickedTimeSet - 1);
-    console.log(pickedTimeSet);
+    if (props.selectedTimer === "pomodoro") {
+      return props.onDecrementTimer();
+    } else if (props.selectedTimer === "shortBreak") {
+      return props.onDecrementShortBreak();
+    } else {
+      return props.onDecrementLongBreak();
+    }
   };
 
   useInterval(() => {
     decrementTime();
-    console.log(sessionTimeSet);
     calculateTimeLeft();
   }, delay);
 
-  const calculateTimeLeft = () => {
+  const calculateTimeLeft = (chosenTimerTimeLeft) => {
     let result = "";
-    const seconds = pickedTimeSet % 60;
-    const minutes = parseInt(pickedTimeSet / 60) % 60;
+    const seconds = chosenTimerTimeLeft % 60;
+    const minutes = parseInt(chosenTimerTimeLeft / 60) % 60;
     function addLeadingZeroes(time) {
       return time < 10 ? `0${time}` : time;
     }
     result += `${addLeadingZeroes(minutes)}:${addLeadingZeroes(seconds)}`;
-    console.log(pickedTimeSet);
     return result;
   };
 
@@ -90,21 +91,63 @@ const Timer = () => {
   };
 
   const resetClockHandler = () => {
-    setPickedTimeSet(sessionTimeSet);
-    // console.log(pickedTimeSet);
+    props.onResetTimer();
     setIsTimerActive(false);
     setDelay(null);
   };
+
+  const selectPomodoroTimer = () => {
+    props.onChoseTimer("pomodoro");
+  };
+  const selectShortBreak = () => {
+    props.onChoseTimer("shortBreak");
+  };
+  const selectLongBreak = () => {
+    props.onChoseTimer("longBreak");
+  };
+
+  const calculateChosenTime = () => {
+    if (props.selectedTimer === "pomodoro") {
+      return calculateTimeLeft(props.timeLeft);
+    } else if (props.selectedTimer === "shortBreak") {
+      return calculateTimeLeft(props.shortBreakTimeLeft);
+    } else {
+      return calculateTimeLeft(props.longBreakTimeLeft);
+    }
+  };
+  console.log(props.timeLeft);
+  console.log(props.shortBreakTimeLeft);
 
   return (
     <>
       <Wraper>
         <ButtonsWraper>
-          <TimerSwitchButton>pomodoro</TimerSwitchButton>
-          <TimerSwitchButton>short break</TimerSwitchButton>
-          <TimerSwitchButton>long break</TimerSwitchButton>
+          <TimerSwitchButton
+            onClick={() => {
+              selectPomodoroTimer();
+              resetClockHandler();
+            }}
+          >
+            pomodoro
+          </TimerSwitchButton>
+          <TimerSwitchButton
+            onClick={() => {
+              selectShortBreak();
+              resetClockHandler();
+            }}
+          >
+            short break
+          </TimerSwitchButton>
+          <TimerSwitchButton
+            onClick={() => {
+              selectLongBreak();
+              resetClockHandler();
+            }}
+          >
+            long break
+          </TimerSwitchButton>
         </ButtonsWraper>
-        <Time>{calculateTimeLeft()}</Time>
+        <Time>{calculateChosenTime()}</Time>
         <StartStopButtonsWraper>
           <StartStopButton onClick={toggleClockHandler}>
             {isTimerActive ? "stop" : "start"}
@@ -117,4 +160,28 @@ const Timer = () => {
   );
 };
 
-export default Timer;
+const mapStateToProps = (state) => {
+  return {
+    time: state.pomo.time,
+    timeLeft: state.pomo.currentSessionTimeLeft,
+    selectedTimer: state.pomo.chosenTimer,
+    shortBreakTimeLeft: state.pomo.shortBreakTimeLeft,
+    longBreakTimeLeft: state.pomo.longBreakTimeLeft,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSetTimer: () => dispatch({ type: actionTypes.SET_TIMER }),
+    onResetTimer: () => dispatch({ type: actionTypes.RESET_TIMER }),
+    onDecrementTimer: () => dispatch({ type: actionTypes.DECREMENT_TIMER }),
+    onDecrementShortBreak: () =>
+      dispatch({ type: actionTypes.DECREMENT_SHORTBREAK }),
+    onDecrementLongBreak: () =>
+      dispatch({ type: actionTypes.DECREMENT_LONGBREAK }),
+    onChoseTimer: (selectedTimer) =>
+      dispatch({ type: actionTypes.CHOOSE_TIMER, payload: selectedTimer }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Timer);

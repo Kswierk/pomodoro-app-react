@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import * as actionTypes from "../store/actions";
 import styled from "styled-components";
 
 const StyledBackdrop = styled.div`
@@ -11,7 +13,13 @@ const StyledBackdrop = styled.div`
 `;
 
 const Backdrop = (props) => (
-  <StyledBackdrop onClick={props.toggleBackdrop}></StyledBackdrop>
+  <StyledBackdrop onClick={props.onToggleModal}></StyledBackdrop>
 );
 
-export default Backdrop;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onToggleModal: () => dispatch({ type: actionTypes.TOGGLE_MODAL }),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Backdrop);

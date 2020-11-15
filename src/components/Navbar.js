@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
+import * as actionTypes from "../store/actions";
+import { connect } from "react-redux";
 
 import SettingsModal from "./SettingsModal";
 
@@ -30,20 +32,16 @@ const StyledNavButton = styled.button`
   cursor: pointer;
 `;
 
-const Navbar = () => {
-  const [isModalOpened, setIsModalOpened] = useState(false);
-
-  const toggleSettingsModal = () => setIsModalOpened(!isModalOpened);
+const Navbar = (props) => {
   return (
     <>
-      {isModalOpened ? (
-        <SettingsModal toggleBackdrop={toggleSettingsModal} />
-      ) : null}
+      {props.isModalOpen || props.isModalBlocked ? <SettingsModal /> : null}
+
       <StyledNav>
         <div>PomodoroFocused</div>
         <StyledUl>
           <StyledLi>
-            <StyledNavButton onClick={toggleSettingsModal}>
+            <StyledNavButton onClick={props.onToggleModal}>
               settings
             </StyledNavButton>
           </StyledLi>
@@ -55,4 +53,18 @@ const Navbar = () => {
     </>
   );
 };
-export default Navbar;
+
+const mapStateToProps = (state) => {
+  return {
+    isModalOpen: state.ui.isModalOpen,
+    isModalBlocked: state.ui.blockmodal,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onToggleModal: () => dispatch({ type: actionTypes.TOGGLE_MODAL }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

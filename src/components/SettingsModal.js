@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import * as actionTypes from "../store/actions";
+
+import { connect } from "react-redux";
 import styled from "styled-components";
-import { TimerContext } from "../context/TimerContext";
-import { ResetTimeContext } from "../context/ResetTimeContext";
 
 import Backdrop from "./Backdrop";
 
@@ -115,6 +116,11 @@ const Slider = styled.span`
   }
 `;
 
+const WrongValueWarning = styled.p`
+  display: ${(props) => (props.showWarning ? "block" : "none")};
+  color: red;
+`;
+
 const SaveButtonWraper = styled.div`
   height: 60px;
   background-color: #ddd;
@@ -134,43 +140,83 @@ const SaveButton = styled.button`
 `;
 
 const SettingsModal = (props) => {
-  const [sessionTimeSet, setTimeSessionSet] = useContext(TimerContext);
-  const setPickedTimeSet = useContext(ResetTimeContext)[1];
-  const [isSwitchClicked, setIsSwitchClicked] = useState(false);
+  const [isProvidedTimeValueWrong, setIsProvidedTimeValueWrong] = useState(
+    false
+  );
+
+  const checkProvidedTimeValue = (e) => {
+    if (e.target.value < 1 || e.target.value > 59) {
+      props.onSetBlockModal(true);
+      setIsProvidedTimeValueWrong(true);
+    } else {
+      props.onSetBlockModal(false);
+      setIsProvidedTimeValueWrong(false);
+    }
+  };
 
   return (
     <>
       <StyledModal>
-        <QuitButton onClick={props.toggleBackdrop}></QuitButton>
+        <QuitButton onClick={props.onToggleModal}></QuitButton>
         <ModalWraper>
           <h3>Settings</h3>
           <hr />
           <h3>Set custom time(minutes)</h3>
+          <WrongValueWarning showWarning={isProvidedTimeValueWrong}>
+            please enter a value between 1 and 59
+          </WrongValueWarning>
           <FormWraper>
             <InputsWraper>
               <StyledLabel>Pomodoro</StyledLabel>
               <StyledInput
+                max="59"
+                min="1"
                 type="number"
                 name="pomodoro"
                 id="pomodoro"
-                defaultValue={sessionTimeSet / 60}
+                defaultValue={props.time / 60}
                 onChange={(e) => {
-                  setTimeSessionSet(e.target.value * 60);
-                  setPickedTimeSet(e.target.value * 60);
+                  props.onSetTimer(e.target.value);
+                  props.onSetCurrentSessionLeft(e.target.value);
+
+                  checkProvidedTimeValue(e);
+                  console.log(props.isModalBlocked);
                 }}
               />
             </InputsWraper>
             <InputsWraper>
               <StyledLabel>short break</StyledLabel>
               <StyledInput
+                max="59"
+                min="1"
+                type="number"
                 name="shortbreak"
                 id="shortbreak"
-                defaultValue={10}
+                defaultValue={props.shortBreakTime / 60}
+                onChange={(e) => {
+                  props.onSetShortBreak(e.target.value);
+                  props.onSetShortBreakSessionLeft(e.target.value);
+
+                  checkProvidedTimeValue(e);
+                }}
               />
             </InputsWraper>
             <InputsWraper>
               <StyledLabel>long break</StyledLabel>
-              <StyledInput name="longbreak" id="longbreak" defaultValue={15} />
+              <StyledInput
+                max="59"
+                min="1"
+                type="number"
+                name="longbreak"
+                id="longbreak"
+                defaultValue={props.longBreakTime / 60}
+                onChange={(e) => {
+                  props.onSetLongBreak(e.target.value);
+                  props.onSetLongBreakSessionLeft(e.target.value);
+
+                  checkProvidedTimeValue(e);
+                }}
+              />
             </InputsWraper>
           </FormWraper>
           <div>
@@ -179,21 +225,61 @@ const SettingsModal = (props) => {
               <input
                 name="darkmode"
                 id="darkmode"
-                onClick={() => setIsSwitchClicked(!isSwitchClicked)}
+                onClick={props.onChangeDarkMode}
                 type="checkbox"
               />
 
-              <Slider switched={isSwitchClicked}></Slider>
+              <Slider switched={props.darkMode}></Slider>
             </Switch>
           </div>
         </ModalWraper>
         <SaveButtonWraper>
-          <SaveButton onClick={props.toggleBackdrop}>save</SaveButton>
+          <SaveButton onClick={props.onToggleModal}>save</SaveButton>
         </SaveButtonWraper>
       </StyledModal>
-      <Backdrop toggleBackdrop={props.toggleBackdrop} />
+
+      <Backdrop />
     </>
   );
 };
 
-export default SettingsModal;
+const mapStateToProps = (state) => {
+  return {
+    time: state.pomo.time,
+    timeLeft: state.pomo.currentSessionTimeLeft,
+    shortBreakTime: state.pomo.shortBreakTime,
+    shortBreakTimeLeft: state.pomo.shortBreakTimeLeft,
+    longBreakTime: state.pomo.longBreakTime,
+    longBreakTimeLeft: state.pomo.longBreakTimeLeft,
+    darkMode: state.ui.darkmode,
+    isModalBlocked: state.ui.blockmodal,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSetTimer: (value) =>
+      dispatch({ type: actionTypes.SET_TIMER, payload: value }),
+    onSetCurrentSessionLeft: (value) =>
+      dispatch({ type: actionTypes.SET_CURRENT_SEESION, payload: value }),
+
+    onSetShortBreak: (value) =>
+      dispatch({ type: actionTypes.SET_SHORTBREAK, payload: value }),
+    onSetShortBreakSessionLeft: (value) =>
+      dispatch({ type: actionTypes.SET_SHORTBREAK_SESSION, payload: value }),
+
+    onSetLongBreak: (value) =>
+      dispatch({ type: actionTypes.SET_LONGBREAK, payload: value }),
+    onSetLongBreakSessionLeft: (value) =>
+      dispatch({ type: actionTypes.SET_LONGBREAK_SESSION, payload: value }),
+
+    onChangeDarkMode: () => dispatch({ type: actionTypes.SET_DARKMODE }),
+    onSetBlockModal: (isTrue) =>
+      dispatch({ type: actionTypes.SETBLOCK_MODAL, payload: isTrue }),
+    onToggleModal: () => dispatch({ type: actionTypes.TOGGLE_MODAL }),
+    onChoseTimer: (selectedTimer) =>
+      dispatch({ type: actionTypes.CHOOSE_TIMER, payload: selectedTimer }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsModal);
