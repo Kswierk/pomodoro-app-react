@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as actionTypes from "../store/actions";
+import alarm from "../assets/sounds/alarm.mp3";
 
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { useInterval } from "../hooks/useInterval";
+import useSound from "use-sound";
 
 const Wraper = styled.div`
   max-width: 500px;
@@ -137,8 +139,33 @@ const Timer = (props) => {
       return calculateTimeLeft(props.longBreakTimeLeft);
     }
   };
-  console.log(props.timeLeft);
-  console.log(props.shortBreakTimeLeft);
+
+  //sound effect functions
+
+  const [play, { stop }] = useSound(alarm, { volume: 1 });
+
+  useEffect(() => {
+    if (
+      props.timeLeft === 0 ||
+      props.shortBreakTimeLeft === 0 ||
+      props.longBreakTimeLeft === 0
+    ) {
+      play();
+      selectShortBreak();
+      resetClockHandler();
+      setTimeout(() => {
+        stop();
+      }, 3000);
+    }
+  }, [
+    props.timeLeft,
+    props.longBreakTimeLeft,
+    props.shortBreakTimeLeft,
+    play,
+    stop,
+    selectShortBreak,
+    resetClockHandler,
+  ]);
 
   return (
     <>
