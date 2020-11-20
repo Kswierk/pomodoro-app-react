@@ -13,3 +13,7 @@ export const CHOOSE_TIMER = "CHOOSE_TIMER";
 export const SETBLOCK_MODAL = "SETBLOCK_MODAL";
 export const TOGGLE_MODAL = "TOGGLE_MODAL";
 export const SET_DARKMODE = "SET_DARKMODE";
+
+export const ADD_TASK = "ADD_TASK";
+export const SET_TASK = "SET_TASK";
+export const DELETE_TASK = "DELETE_TASK";

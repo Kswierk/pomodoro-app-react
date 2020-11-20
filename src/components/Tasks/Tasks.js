@@ -1,20 +1,27 @@
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
+import TaskItems from "./TaskItems";
 
 const Wraper = styled.div`
-  max-width: 600px;
   margin: 0 auto;
+  max-width: 700px;
+  text-align: center;
 `;
 
-const Tasks = () => {
+const Tasks = (props) => {
   return (
     <Wraper>
-      <div>tasks</div>
-      <hr />
-      <div>task</div>
-      <div>add task</div>
+      <h1>TASKS</h1>
+      <TaskItems />
     </Wraper>
   );
 };
 
-export default Tasks;
+const mapStateToProps = (state) => {
+  return {
+    tasks: state.tasks.tasks,
+  };
+};
+
+export default connect(mapStateToProps, null)(Tasks);
