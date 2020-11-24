@@ -5,8 +5,10 @@ import styled from "styled-components";
 
 const Wraper = styled.div`
   max-width: 600px;
+  min-height: 30vh;
   margin: 0 auto;
   text-align: center;
+  background-color: rgba(230, 230, 230, 0.4);
 `;
 
 function TasksList() {
@@ -49,7 +51,7 @@ function TasksList() {
 
   return (
     <Wraper>
-      <h1>siema</h1>
+      <h1>Tasks</h1>
       <TasksForm onSubmit={addTask} />
       <Task
         tasks={tasks}

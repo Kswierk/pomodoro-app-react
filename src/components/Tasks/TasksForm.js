@@ -1,4 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
+import styled from "styled-components";
+
+const StyledInput = styled.input`
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid green;
+  padding: 0.5rem;
+`;
+
+const StyledButton = styled.button`
+  border: none;
+  padding: 0.5rem;
+  margin-left: 20px;
+  border-radius: 4px;
+`;
 
 function TasksList(props) {
   const [input, setInput] = useState("");
@@ -24,7 +39,7 @@ function TasksList(props) {
   console.log(props.tasks);
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-      <input
+      <StyledInput
         type="text"
         placeholder="Add task"
         value={input}
@@ -32,8 +47,8 @@ function TasksList(props) {
         name="text"
         ref={inputRef}
         required
-      ></input>
-      <button>Add todo</button>
+      ></StyledInput>
+      <StyledButton>Add task</StyledButton>
     </form>
   );
 }

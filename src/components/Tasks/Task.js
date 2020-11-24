@@ -2,6 +2,19 @@ import React, { useState } from "react";
 import TasksForm from "./TasksForm";
 import { RiCloseCircleLine } from "react-icons/ri";
 import { TiEdit } from "react-icons/ti";
+import styled from "styled-components";
+
+const TaskWraper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: lavender;
+`;
+
+const StyledTask = styled.div`
+  font-size: 1.1rem;
+  margin: 10px 0;
+`;
 
 function Task({ tasks, completeTask, removeTask, updateTask }) {
   const [edit, setEdit] = useState({
@@ -21,15 +34,15 @@ function Task({ tasks, completeTask, removeTask, updateTask }) {
     return <TasksForm edit={edit} onSubmit={submitUpdate} />;
   }
   return tasks.map((task, index) => (
-    <div key={index}>
-      <div key={task.id} onClick={() => completeTask(task.id)}>
+    <TaskWraper key={index}>
+      <StyledTask key={task.id} onClick={() => completeTask(task.id)}>
         {task.text}
-      </div>
+      </StyledTask>
       <div>
         <RiCloseCircleLine onClick={() => removeTask(task.id)} />
         <TiEdit onClick={() => setEdit({ id: task.id, value: task.text })} />
       </div>
-    </div>
+    </TaskWraper>
   ));
 }
 
