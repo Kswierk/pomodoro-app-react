@@ -2,7 +2,7 @@ import React from "react";
 
 import Navbar from "./components/Navbar";
 import Timer from "./components/Timer";
-import Tasks from "./components/Tasks/Tasks";
+import TasksList from "./components/Tasks/TasksList";
 
 import GlobalStyles from "./globalStyles";
 
@@ -11,7 +11,7 @@ const Root = () => (
     <GlobalStyles />
     <Navbar />
     <Timer />
-    <Tasks />
+    <TasksList />
   </>
 );
 
