@@ -4,11 +4,17 @@ import Task from "./Task";
 import styled from "styled-components";
 
 const Wraper = styled.div`
-  max-width: 600px;
+  max-width: 500px;
   min-height: 30vh;
   margin: 0 auto;
+  border-radius: 4px;
+  color: #fff;
+  /* text-align: center; */
+  /* background-color: rgba(230, 230, 230, 0.4); */
+`;
+
+const StyledHeader = styled.h1`
   text-align: center;
-  background-color: rgba(230, 230, 230, 0.4);
 `;
 
 function TasksList() {
@@ -20,7 +26,6 @@ function TasksList() {
     }
     const newTasks = [task, ...tasks];
     setTasks(newTasks);
-    console.log(newTasks);
   };
 
   const removeTask = (id) => {
@@ -51,7 +56,7 @@ function TasksList() {
 
   return (
     <Wraper>
-      <h1>Tasks</h1>
+      <StyledHeader>Tasks</StyledHeader>
       <TasksForm onSubmit={addTask} />
       <Task
         tasks={tasks}

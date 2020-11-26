@@ -6,14 +6,28 @@ import styled from "styled-components";
 
 const TaskWraper = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  background-color: lavender;
+  margin: 5px 30px;
+  padding: 0.3rem;
+  border-radius: 4px;
+  background-color: rgba(230, 230, 230, 0.4);
 `;
 
 const StyledTask = styled.div`
   font-size: 1.1rem;
   margin: 10px 0;
+`;
+
+const EditIcon = styled(TiEdit)`
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-left: 20px;
+`;
+const DeleteIcon = styled(RiCloseCircleLine)`
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-left: 20px;
 `;
 
 function Task({ tasks, completeTask, removeTask, updateTask }) {
@@ -39,8 +53,8 @@ function Task({ tasks, completeTask, removeTask, updateTask }) {
         {task.text}
       </StyledTask>
       <div>
-        <RiCloseCircleLine onClick={() => removeTask(task.id)} />
-        <TiEdit onClick={() => setEdit({ id: task.id, value: task.text })} />
+        <DeleteIcon onClick={() => removeTask(task.id)} />
+        <EditIcon onClick={() => setEdit({ id: task.id, value: task.text })} />
       </div>
     </TaskWraper>
   ));

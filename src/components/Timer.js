@@ -71,7 +71,6 @@ const StartStopButton = styled.button`
 
 const Goal = styled.p`
   text-align: center;
-  padding: 30px;
   font-size: 1.4rem;
 `;
 
