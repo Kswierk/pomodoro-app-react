@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { BiPlusCircle, BiCheckCircle } from "react-icons/bi";
 import styled from "styled-components";
 
@@ -93,10 +93,10 @@ const StyledButton = styled.button`
 function TasksList(props) {
   const [input, setInput] = useState(props.edit ? props.edit.value : "");
 
-  const inputRef = useRef(null);
-  useEffect(() => {
-    inputRef.current.focus();
-  });
+  // const inputRef = useRef(null);
+  // useEffect(() => {
+  //   inputRef.current.focus();
+  // });
 
   const handleChange = (e) => {
     setInput(e.target.value);
@@ -120,7 +120,7 @@ function TasksList(props) {
             value={input}
             onChange={handleChange}
             name="text"
-            ref={inputRef}
+            // ref={inputRef}
             required
           ></StyledInput>
           <StyledLabel>
@@ -137,7 +137,7 @@ function TasksList(props) {
             value={input}
             onChange={handleChange}
             name="text"
-            ref={inputRef}
+            // ref={inputRef}
             required
           ></StyledInput>
           <StyledLabel>
