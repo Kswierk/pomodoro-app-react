@@ -8,7 +8,7 @@ import { useInterval } from "../hooks/useInterval";
 import useSound from "use-sound";
 
 const Wraper = styled.div`
-  max-width: 500px;
+  max-width: 430px;
   margin: 0 auto;
   text-align: center;
   background-color: rgba(230, 230, 230, 0.4);
@@ -19,11 +19,11 @@ const Wraper = styled.div`
 `;
 
 const ButtonsWraper = styled.div`
-  padding-top: 20px;
+  padding-top: 15px;
 `;
 
 const TimerSwitchButton = styled.button`
-  padding: 8px 20px;
+  padding: 8px 15px;
   margin: 0 10px;
   text-transform: capitalize;
   border: none;
@@ -39,7 +39,7 @@ const TimerSwitchButton = styled.button`
 `;
 
 const Time = styled.div`
-  padding: 30px 0;
+  /* padding: 30px 0; */
   font-size: 7rem;
   font-weight: 700;
   color: #f3ecf1;

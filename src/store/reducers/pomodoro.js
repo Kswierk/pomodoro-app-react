@@ -2,7 +2,7 @@ import * as actionTypes from "../actions";
 
 const initialState = {
   time: 1500,
-  currentSessionTimeLeft: 2,
+  currentSessionTimeLeft: 1500,
 
   shortBreakTime: 300,
   shortBreakTimeLeft: 300,
