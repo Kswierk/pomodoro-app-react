@@ -4,6 +4,7 @@ import * as actionTypes from "../store/actions";
 import { connect } from "react-redux";
 
 import SettingsModal from "./SettingsModal";
+import LoginModal from "./Auth/LoginModal";
 
 const StyledNav = styled.nav`
   display: flex;
@@ -37,18 +38,23 @@ const StyledNavButton = styled.button`
 const Navbar = (props) => {
   return (
     <>
-      {props.isModalOpen || props.isModalBlocked ? <SettingsModal /> : null}
+      {props.isSettingsModalOpen || props.isModalBlocked ? (
+        <SettingsModal />
+      ) : null}
+      {props.isLoginModalOpen ? <LoginModal /> : null}
 
       <StyledNav>
         <div>PomodoroFocused</div>
         <StyledUl>
           <StyledLi>
-            <StyledNavButton onClick={props.onToggleModal}>
+            <StyledNavButton onClick={props.onToggleSettingsModal}>
               settings
             </StyledNavButton>
           </StyledLi>
           <StyledLi>
-            <StyledNavButton>login</StyledNavButton>
+            <StyledNavButton onClick={props.onToggleLoginModal}>
+              login
+            </StyledNavButton>
           </StyledLi>
         </StyledUl>
       </StyledNav>
@@ -58,14 +64,17 @@ const Navbar = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isModalOpen: state.ui.isModalOpen,
+    isSettingsModalOpen: state.ui.isModalOpen,
+    isLoginModalOpen: state.login.isLoginModalOpen,
     isModalBlocked: state.ui.blockmodal,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onToggleModal: () => dispatch({ type: actionTypes.TOGGLE_MODAL }),
+    onToggleSettingsModal: () => dispatch({ type: actionTypes.TOGGLE_MODAL }),
+    onToggleLoginModal: () =>
+      dispatch({ type: actionTypes.TOGGLE_LOGIN_MODAL }),
   };
 };
 

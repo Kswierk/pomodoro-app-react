@@ -12,4 +12,8 @@ export const CHOOSE_TIMER = "CHOOSE_TIMER";
 
 export const SETBLOCK_MODAL = "SETBLOCK_MODAL";
 export const TOGGLE_MODAL = "TOGGLE_MODAL";
+export const CLOSE_SETTINGS = "CLOSE_SETTINGS";
 export const SET_DARKMODE = "SET_DARKMODE";
+
+export const TOGGLE_LOGIN_MODAL = "TOGGLE_LOGIN_MODAL";
+export const CLOSE_LOGIN = "CLOSE_LOGIN";

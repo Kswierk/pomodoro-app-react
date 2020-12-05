@@ -13,12 +13,19 @@ const StyledBackdrop = styled.div`
 `;
 
 const Backdrop = (props) => (
-  <StyledBackdrop onClick={props.onToggleModal}></StyledBackdrop>
+  <StyledBackdrop
+    onClick={() => {
+      props.onBackdropClickLogin();
+      props.onBackdropClickSettings();
+    }}
+  ></StyledBackdrop>
 );
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onToggleModal: () => dispatch({ type: actionTypes.TOGGLE_MODAL }),
+    onBackdropClickSettings: () =>
+      dispatch({ type: actionTypes.CLOSE_SETTINGS }),
+    onBackdropClickLogin: () => dispatch({ type: actionTypes.CLOSE_LOGIN }),
   };
 };
 

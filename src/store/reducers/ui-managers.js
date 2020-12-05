@@ -23,6 +23,11 @@ const uiManagers = (state = initialState, action) => {
         ...state,
         isModalOpen: !state.isModalOpen,
       };
+    case actionTypes.CLOSE_SETTINGS:
+      return {
+        ...state,
+        isModalOpen: false,
+      };
     default:
       return state;
   }

@@ -6,10 +6,12 @@ import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import pomodoro from "./store/reducers/pomodoro";
 import uiManagers from "./store/reducers/ui-managers";
+import loginManagers from "./store/reducers/auth";
 
 const rootReducer = combineReducers({
   pomo: pomodoro,
   ui: uiManagers,
+  login: loginManagers,
 });
 
 const store = createStore(rootReducer);
