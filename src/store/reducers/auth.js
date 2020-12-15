@@ -2,6 +2,8 @@ import * as actionTypes from "../actions";
 
 const initialState = {
   isLoginModalOpen: false,
+  user: null,
+  logout: null,
 };
 
 const loginManagers = (state = initialState, action) => {
@@ -15,6 +17,11 @@ const loginManagers = (state = initialState, action) => {
       return {
         ...state,
         isLoginModalOpen: false,
+      };
+    case actionTypes.SET_USER:
+      return {
+        ...state,
+        user: action.payload,
       };
 
     default:

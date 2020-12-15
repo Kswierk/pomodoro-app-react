@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import * as actionTypes from "../../store/actions";
+import fire from "../../fire";
 import Backdrop from "../Backdrop";
 
 import styled from "styled-components";
+import Login from "./Login";
 
 const StyledModal = styled.div`
   background-color: #fff;
   width: 100%;
   max-width: 350px;
-  height: 30vh;
   margin: 80px auto;
   border-radius: 4px;
   z-index: 200;
@@ -48,7 +49,7 @@ const QuitButton = styled.div`
 
 const StyledHeader = styled.h3``;
 
-const InputsWraper = styled.div`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,6 +70,7 @@ const StyledButton = styled.button`
   height: 30px;
   border-radius: 4px;
   background-color: #eee;
+  cursor: pointer;
 `;
 
 const ModalWraper = styled.div`
@@ -76,6 +78,83 @@ const ModalWraper = styled.div`
 `;
 
 const LoginModal = (props) => {
+  // const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [hasAccount, setHasAccount] = useState("");
+
+  const clearInputs = () => {
+    setEmail("");
+    setPassword("");
+  };
+
+  const clearErrors = () => {
+    setEmailError("");
+    setPasswordError("");
+  };
+
+  const handleLogin = () => {
+    clearErrors();
+    fire
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch((err) => {
+        switch (err.code) {
+          case "auth/invalid-email":
+          case "auth/user-disabled":
+          case "auth/user-not-found":
+            setEmailError(err.message);
+            break;
+          case "auth/wrong-password":
+            setPasswordError(err.message);
+            break;
+        }
+      });
+  };
+
+  // if (props.user) {
+  //   props.onLogin();
+  // }
+
+  const handleSignup = () => {
+    clearErrors();
+    fire
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .catch((err) => {
+        switch (err.code) {
+          case "auth/email-already-in-use":
+          case "auth/invalid-email":
+            setEmailError(err.message);
+            break;
+          case "auth/weak-password":
+            setPasswordError(err.message);
+            break;
+        }
+      });
+  };
+
+  const handleLogout = () => {
+    fire.auth().signOut();
+  };
+
+  // const authListener = () => {
+  //   fire.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+  //       clearInputs();
+  //       props.onSetUser(user);
+  //     } else {
+  //       props.onSetUser("");
+  //     }
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   authListener();
+  // }, []);
+
   return (
     <>
       <StyledModal>
@@ -83,11 +162,23 @@ const LoginModal = (props) => {
         <ModalWraper>
           <StyledHeader>Login</StyledHeader>
           <hr />
-          <InputsWraper>
+          {/* <Form onSubmit={() => console.log("submitted")}>
             <StyledInput placeholder="Email" />
             <StyledInput placeholder="Password" />
-            <StyledButton>Login</StyledButton>
-          </InputsWraper>
+            <StyledButton type="submit">Login</StyledButton>
+  </Form> */}
+          <Login
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            handleLogin={handleLogin}
+            handleSignup={handleSignup}
+            hasAccount={hasAccount}
+            setHasAccount={setHasAccount}
+            emailError={emailError}
+            passwordError={passwordError}
+          />
         </ModalWraper>
       </StyledModal>
       <Backdrop />
@@ -98,6 +189,7 @@ const LoginModal = (props) => {
 const mapStateToProps = (state) => {
   return {
     isLoginModalOpen: state.login.isLoginModalOpen,
+    user: state.login.user,
   };
 };
 
@@ -105,6 +197,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onCloseLogin: (value) =>
       dispatch({ type: actionTypes.CLOSE_LOGIN, payload: value }),
+    onSetUser: (user) =>
+      dispatch({ type: actionTypes.SET_USER, payload: user }),
+    onLogin: () => dispatch({ type: actionTypes.CLOSE_LOGIN }),
   };
 };
 

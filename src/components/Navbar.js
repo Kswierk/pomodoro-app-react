@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import * as actionTypes from "../store/actions";
 import { connect } from "react-redux";
 
 import SettingsModal from "./SettingsModal";
 import LoginModal from "./Auth/LoginModal";
+import fire from "../fire";
 
 const StyledNav = styled.nav`
   display: flex;
@@ -36,6 +37,25 @@ const StyledNavButton = styled.button`
 `;
 
 const Navbar = (props) => {
+  const handleLogout = () => {
+    fire.auth().signOut();
+  };
+
+  const authListener = () => {
+    fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+        // clearInputs();
+        props.onSetUser(user);
+      } else {
+        props.onSetUser("");
+      }
+    });
+  };
+
+  useEffect(() => {
+    authListener();
+  }, []);
+
   return (
     <>
       {props.isSettingsModalOpen || props.isModalBlocked ? (
@@ -52,9 +72,15 @@ const Navbar = (props) => {
             </StyledNavButton>
           </StyledLi>
           <StyledLi>
-            <StyledNavButton onClick={props.onToggleLoginModal}>
-              login
-            </StyledNavButton>
+            {/* <StyledNavButton onClick={props.onToggleLoginModal}> */}
+            {props.user ? (
+              <StyledNavButton onClick={handleLogout}>logout</StyledNavButton>
+            ) : (
+              <StyledNavButton onClick={props.onToggleLoginModal}>
+                login
+              </StyledNavButton>
+            )}
+            {/* </StyledNavButton> */}
           </StyledLi>
         </StyledUl>
       </StyledNav>
@@ -67,6 +93,7 @@ const mapStateToProps = (state) => {
     isSettingsModalOpen: state.ui.isModalOpen,
     isLoginModalOpen: state.login.isLoginModalOpen,
     isModalBlocked: state.ui.blockmodal,
+    user: state.login.user,
   };
 };
 
@@ -75,6 +102,8 @@ const mapDispatchToProps = (dispatch) => {
     onToggleSettingsModal: () => dispatch({ type: actionTypes.TOGGLE_MODAL }),
     onToggleLoginModal: () =>
       dispatch({ type: actionTypes.TOGGLE_LOGIN_MODAL }),
+    onSetUser: (user) =>
+      dispatch({ type: actionTypes.SET_USER, payload: user }),
   };
 };
 

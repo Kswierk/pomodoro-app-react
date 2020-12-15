@@ -17,3 +17,4 @@ export const SET_DARKMODE = "SET_DARKMODE";
 
 export const TOGGLE_LOGIN_MODAL = "TOGGLE_LOGIN_MODAL";
 export const CLOSE_LOGIN = "CLOSE_LOGIN";
+export const SET_USER = "SET_USER";
