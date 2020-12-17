@@ -1,4 +1,36 @@
 import React from "react";
+import styled from "styled-components";
+
+const InsideWraper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const SignInWraper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const StyledInput = styled.input`
+  border-radius: 4px;
+  border: none;
+  background-color: lightgray;
+  padding: 8px;
+`;
+
+const StyledLabel = styled.label`
+  color: gray;
+`;
+
+const StyledButton = styled.button`
+  padding: 0.4rem 1.4rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+`;
 
 const Login = (props) => {
   const {
@@ -15,28 +47,28 @@ const Login = (props) => {
   } = props;
   return (
     <section>
-      <div>
-        <label>Username</label>
-        <input
+      <InsideWraper>
+        <StyledLabel>Username</StyledLabel>
+        <StyledInput
           type="text"
           autoFocus
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-        ></input>
+        />
         <p>{emailError}</p>
-        <label>Password</label>
-        <input
+        <StyledLabel>Password</StyledLabel>
+        <StyledInput
           type="password"
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <p>{passwordError}</p>
-        <div>
+        <SignInWraper>
           {hasAccount ? (
             <>
-              <button onClick={handleLogin}>Sign in</button>
+              <StyledButton onClick={handleLogin}>Sign in</StyledButton>
               <p>
                 Don't have an account ?
                 <span onClick={() => setHasAccount(!hasAccount)}>Sign Up</span>
@@ -44,15 +76,15 @@ const Login = (props) => {
             </>
           ) : (
             <>
-              <button onClick={handleSignup}>Sign up</button>
+              <StyledButton onClick={handleSignup}>Sign up</StyledButton>
               <p>
                 Have an account?
                 <span onClick={() => setHasAccount(!hasAccount)}>Sign In</span>
               </p>
             </>
           )}
-        </div>
-      </div>
+        </SignInWraper>
+      </InsideWraper>
     </section>
   );
 };

@@ -45,6 +45,8 @@ const Navbar = (props) => {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
         // clearInputs();
+        console.log("logged in");
+        props.onCloseLoginModal();
         props.onSetUser(user);
       } else {
         props.onSetUser("");
@@ -104,6 +106,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: actionTypes.TOGGLE_LOGIN_MODAL }),
     onSetUser: (user) =>
       dispatch({ type: actionTypes.SET_USER, payload: user }),
+    onCloseLoginModal: () => dispatch({ type: actionTypes.CLOSE_LOGIN }),
   };
 };
 
