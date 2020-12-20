@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { BiPlusCircle, BiCheckCircle } from "react-icons/bi";
 import styled from "styled-components";
+import PropTypes from 'prop-types'
 
+import { BiPlusCircle, BiCheckCircle } from "react-icons/bi";
 const StyledForm = styled.form`
   position: relative;
   /* margin: 0 auto; */
@@ -150,6 +151,11 @@ function TasksList(props) {
       )}
     </StyledForm>
   );
+}
+
+TasksList.propTypes = { 
+edit: PropTypes.object,
+onSubmit: PropTypes.func,
 }
 
 export default TasksList;

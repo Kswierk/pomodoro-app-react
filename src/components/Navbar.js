@@ -4,7 +4,8 @@ import * as actionTypes from "../store/actions";
 import { connect } from "react-redux";
 import PropTypes from 'prop-types'; 
 
-
+import {BiLogIn} from 'react-icons/bi'
+import {FiSettings} from 'react-icons/fi'
 import SettingsModal from "./SettingsModal";
 import LoginModal from "./Auth/LoginModal";
 import fire from "../fire";
@@ -31,11 +32,23 @@ const StyledNavButton = styled.button`
   padding: 7px 30px;
   margin: 0 20px;
   background-color: #386b1f;
+  display: flex;
+  align-items:center;
   color: #f3ecf1;
   border: none;
   border-radius: 4px;
   font-size: 0.8rem;
   cursor: pointer;
+`;
+const SettingsIcon = styled(FiSettings)`
+  font-size: 1rem;
+  margin-right: 5px;
+`;
+
+const LoginIcon = styled(BiLogIn)`
+   font-size: 1rem;
+  margin-right: 5px;
+  color: white;
 `;
 
 const Navbar = (props) => {
@@ -72,16 +85,16 @@ const Navbar = (props) => {
         <StyledUl>
           <StyledLi>
             <StyledNavButton onClick={props.onToggleSettingsModal}>
-              settings
+            <SettingsIcon/>settings
             </StyledNavButton>
           </StyledLi>
           <StyledLi>
             {/* <StyledNavButton onClick={props.onToggleLoginModal}> */}
             {props.user ? (
-              <StyledNavButton onClick={handleLogout}>logout</StyledNavButton>
+              <StyledNavButton onClick={handleLogout}><LoginIcon/> logout</StyledNavButton>
             ) : (
               <StyledNavButton onClick={props.onToggleLoginModal}>
-                login
+               <LoginIcon/>  login
               </StyledNavButton>
             )}
             {/* </StyledNavButton> */}
@@ -114,7 +127,7 @@ const mapDispatchToProps = (dispatch) => {
 
 Navbar.propTypes = {
   onCloseLoginModal: PropTypes.func,
-  user: PropTypes.string,
+  user: PropTypes.any,
   onSetUser: PropTypes.func,
   isSettingsModalOpen: PropTypes.bool,
   isLoginModalOpen: PropTypes.bool,

@@ -261,7 +261,7 @@ const SettingsModal = (props) => {
               <Slider switched={props.darkMode}></Slider>
             </Switch>
              {props.isLogged ? null : <ClosedLock/>} 
-          {isHovering && <StyledMessage>Login to enable DarkMode</StyledMessage>}
+          {props.isLogged ? null : isHovering && <StyledMessage>Login to enable DarkMode</StyledMessage>}
           </DarkModeFlexWraper>
           </div>
         </ModalWraper>
@@ -328,7 +328,7 @@ SettingsModal.propTypes = {
   onSetLongBreak: PropTypes.func,
   onSetLongBreakSessionLeft: PropTypes.func,
   longBreakTime: PropTypes.number,
-  isLogged: PropTypes.string,
+  isLogged: PropTypes.any,
   onChangeDarkMode: PropTypes.func,
   darkMode: PropTypes.bool,
 }
