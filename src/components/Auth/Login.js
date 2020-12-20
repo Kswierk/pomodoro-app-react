@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from 'prop-types'; 
 
 const InsideWraper = styled.div`
   display: flex;
@@ -30,6 +31,12 @@ const StyledButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   outline: none;
+`;
+
+const StyledSpan = styled.span`
+color: green;
+  cursor: pointer;
+  margin: 0 10px;
 `;
 
 const Login = (props) => {
@@ -70,8 +77,8 @@ const Login = (props) => {
             <>
               <StyledButton onClick={handleLogin}>Sign in</StyledButton>
               <p>
-                Don't have an account ?
-                <span onClick={() => setHasAccount(!hasAccount)}>Sign Up</span>
+                Don&apos;t have an account ?
+                <StyledSpan onClick={() => setHasAccount(!hasAccount)}>Sign Up</StyledSpan>
               </p>
             </>
           ) : (
@@ -79,7 +86,7 @@ const Login = (props) => {
               <StyledButton onClick={handleSignup}>Sign up</StyledButton>
               <p>
                 Have an account?
-                <span onClick={() => setHasAccount(!hasAccount)}>Sign In</span>
+                <StyledSpan onClick={() => setHasAccount(!hasAccount)}>Sign In</StyledSpan>
               </p>
             </>
           )}
@@ -88,5 +95,18 @@ const Login = (props) => {
     </section>
   );
 };
+
+Login.propTypes = {
+  email: PropTypes.string,
+  setEmail:PropTypes.func ,
+    password: PropTypes.string,
+    setPassword :PropTypes.func,
+    handleLogin: PropTypes.func,
+    handleSignup: PropTypes.func,
+    hasAccount: PropTypes.any,
+    setHasAccount: PropTypes.func,
+    emailError: PropTypes.string,
+    passwordError: PropTypes.string,
+}
 
 export default Login;

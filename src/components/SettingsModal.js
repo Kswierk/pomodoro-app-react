@@ -3,6 +3,10 @@ import * as actionTypes from "../store/actions";
 
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { AiOutlineLock } from 'react-icons/ai';
+
+
+
 
 import Backdrop from "./Backdrop";
 
@@ -139,10 +143,27 @@ const SaveButton = styled.button`
   outline: none;
 `;
 
+const DarkModeFlexWraper = styled.div`
+  display:flex;
+  align-items:center;
+`;
+
+const ClosedLock = styled(AiOutlineLock)`
+  font-size: 25px;
+  margin-left: 10px;
+`;
+
+const StyledMessage = styled.p`
+  font-size: .6rem;
+  margin-left: 10px;
+`;
+
 const SettingsModal = (props) => {
   const [isProvidedTimeValueWrong, setIsProvidedTimeValueWrong] = useState(
     false
   );
+
+  const [isHovering, setIsHovering] = useState(false)
 
   const checkProvidedTimeValue = (e) => {
     if (e.target.value < 1 || e.target.value > 59) {
@@ -153,6 +174,10 @@ const SettingsModal = (props) => {
       setIsProvidedTimeValueWrong(false);
     }
   };
+
+ const handleMouseHover= () =>{
+    setIsHovering(!isHovering);
+  }
 
   return (
     <>
@@ -221,16 +246,22 @@ const SettingsModal = (props) => {
           </FormWraper>
           <div>
             <DarkModeHeader>Dark Mode</DarkModeHeader>
-            <Switch>
-              <input
+           <DarkModeFlexWraper>
+            <Switch 
+             onMouseEnter={handleMouseHover}
+             onMouseLeave={handleMouseHover}>
+              <input disabled={!props.isLogged}
                 name="darkmode"
                 id="darkmode"
                 onClick={props.onChangeDarkMode}
                 type="checkbox"
-              />
+                />
 
               <Slider switched={props.darkMode}></Slider>
             </Switch>
+             {props.isLogged ? null : <ClosedLock/>} 
+          {isHovering && <StyledMessage>Login to enable DarkMode</StyledMessage>}
+          </DarkModeFlexWraper>
           </div>
         </ModalWraper>
         <SaveButtonWraper>
@@ -253,6 +284,7 @@ const mapStateToProps = (state) => {
     longBreakTimeLeft: state.pomo.longBreakTimeLeft,
     darkMode: state.ui.darkmode,
     isModalBlocked: state.ui.blockmodal,
+    isLogged: state.login.user,
   };
 };
 

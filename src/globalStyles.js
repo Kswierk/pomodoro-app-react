@@ -29,9 +29,13 @@ const GlobalStyle = createGlobalStyle`
               }
             }};
         font-family: 'Noto Sans JP', sans-serif;
-       
- 
     }
+    input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
 `;
 
 const mapStateToProps = (state) => {
