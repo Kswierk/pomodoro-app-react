@@ -7,12 +7,7 @@ const GlobalStyle = createGlobalStyle`
         padding:0;
         box-sizing: border-box;
         transition: .3s ease-in-out;
-        /* background-color: ${(props) =>
-          props.chosenTimer === "pomodoro"
-            ? "#bc1212"
-            : props.chosenTimer === "shortBreak"
-            ? "#386B1F"
-            : "royalblue"}; */
+    
 
             background-color:  ${(props) => {
               if (props.darkMode) {

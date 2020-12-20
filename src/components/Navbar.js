@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import * as actionTypes from "../store/actions";
 import { connect } from "react-redux";
+import PropTypes from 'prop-types'; 
+
 
 import SettingsModal from "./SettingsModal";
 import LoginModal from "./Auth/LoginModal";
@@ -109,5 +111,16 @@ const mapDispatchToProps = (dispatch) => {
     onCloseLoginModal: () => dispatch({ type: actionTypes.CLOSE_LOGIN }),
   };
 };
+
+Navbar.propTypes = {
+  onCloseLoginModal: PropTypes.func,
+  user: PropTypes.string,
+  onSetUser: PropTypes.func,
+  isSettingsModalOpen: PropTypes.bool,
+  isLoginModalOpen: PropTypes.bool,
+  isModalBlocked: PropTypes.bool,
+  onToggleSettingsModal: PropTypes.func,
+  onToggleLoginModal: PropTypes.func,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

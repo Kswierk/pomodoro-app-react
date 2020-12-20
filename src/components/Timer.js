@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as actionTypes from "../store/actions";
 import alarm from "../assets/sounds/alarm.mp3";
+import PropTypes from 'prop-types'
 
 import { connect } from "react-redux";
 import styled from "styled-components";
@@ -234,5 +235,19 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: actionTypes.CHOOSE_TIMER, payload: selectedTimer }),
   };
 };
+
+Timer.propTypes = {
+  selectedTimer: PropTypes.string,
+  onDecrementLongBreak: PropTypes.func,
+  onDecrementShortBreak: PropTypes.func,
+  onDecrementTimer: PropTypes.func,
+  onResetTimer: PropTypes.func,
+  onSetTimer: PropTypes.func,
+  onChoseTimer: PropTypes.func,
+  timeLeft: PropTypes.number,
+  shortBreakTimeLeft: PropTypes.number,
+  longBreakTime: PropTypes.number,
+  longBreakTimeLeft: PropTypes.number,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);

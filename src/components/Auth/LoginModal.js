@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as actionTypes from "../../store/actions";
 import fire from "../../fire";
 import Backdrop from "../Backdrop";
+import PropTypes from 'prop-types'; 
 
 import styled from "styled-components";
 import Login from "./Login";
@@ -49,29 +50,29 @@ const QuitButton = styled.div`
 
 const StyledHeader = styled.h3``;
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-`;
+// const Form = styled.form`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   width: 100%;
+// `;
 
-const StyledInput = styled.input`
-  width: 80%;
-  height: 30px;
-  border: 1px solid gray;
-  border-radius: 4px;
-  margin: 10px auto;
-`;
+// const StyledInput = styled.input`
+//   width: 80%;
+//   height: 30px;
+//   border: 1px solid gray;
+//   border-radius: 4px;
+//   margin: 10px auto;
+// `;
 
-const StyledButton = styled.button`
-  width: 30%;
-  border: none;
-  height: 30px;
-  border-radius: 4px;
-  background-color: #eee;
-  cursor: pointer;
-`;
+// const StyledButton = styled.button`
+//   width: 30%;
+//   border: none;
+//   height: 30px;
+//   border-radius: 4px;
+//   background-color: #eee;
+//   cursor: pointer;
+// `;
 
 const ModalWraper = styled.div`
   margin: 40px 5%;
@@ -85,10 +86,10 @@ const LoginModal = (props) => {
   const [passwordError, setPasswordError] = useState("");
   const [hasAccount, setHasAccount] = useState("");
 
-  const clearInputs = () => {
-    setEmail("");
-    setPassword("");
-  };
+  // const clearInputs = () => {
+  //   setEmail("");
+  //   setPassword("");
+  // };
 
   const clearErrors = () => {
     setEmailError("");
@@ -136,9 +137,9 @@ const LoginModal = (props) => {
       });
   };
 
-  const handleLogout = () => {
-    fire.auth().signOut();
-  };
+  // const handleLogout = () => {
+  //   fire.auth().signOut();
+  // };
 
   // const authListener = () => {
   //   fire.auth().onAuthStateChanged((user) => {
@@ -202,5 +203,9 @@ const mapDispatchToProps = (dispatch) => {
     onLogin: () => dispatch({ type: actionTypes.CLOSE_LOGIN }),
   };
 };
+
+LoginModal.propTypes = {
+  onCloseLogin: PropTypes.func,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);

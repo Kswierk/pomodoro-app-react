@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as actionTypes from "../store/actions";
 
+import PropTypes from 'prop-types'; 
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { AiOutlineLock } from 'react-icons/ai';
@@ -313,5 +314,23 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: actionTypes.CHOOSE_TIMER, payload: selectedTimer }),
   };
 };
+
+SettingsModal.propTypes = {
+  onSetBlockModal: PropTypes.func,
+  onToggleModal: PropTypes.func,
+  time: PropTypes.number,
+  onSetTimer: PropTypes.func,
+  onSetCurrentSessionLeft: PropTypes.func,
+  isModalBlocked: PropTypes.bool,
+  shortBreakTime: PropTypes.number,
+  onSetShortBreak: PropTypes.func,
+  onSetShortBreakSessionLeft: PropTypes.func,
+  onSetLongBreak: PropTypes.func,
+  onSetLongBreakSessionLeft: PropTypes.func,
+  longBreakTime: PropTypes.number,
+  isLogged: PropTypes.string,
+  onChangeDarkMode: PropTypes.func,
+  darkMode: PropTypes.bool,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsModal);

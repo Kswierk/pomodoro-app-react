@@ -2,6 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
 import styled from "styled-components";
+import PropTypes from 'prop-types'; 
+
+
 
 const StyledBackdrop = styled.div`
   top: 0;
@@ -28,5 +31,10 @@ const mapDispatchToProps = (dispatch) => {
     onBackdropClickLogin: () => dispatch({ type: actionTypes.CLOSE_LOGIN }),
   };
 };
+
+Backdrop.propTypes ={
+  onBackdropClickLogin: PropTypes.func,
+  onBackdropClickSettings: PropTypes.func,
+}
 
 export default connect(null, mapDispatchToProps)(Backdrop);
