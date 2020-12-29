@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import { connect } from "react-redux";
+import { createGlobalStyle } from 'styled-components';
+import { connect } from 'react-redux';
 
 const GlobalStyle = createGlobalStyle`
     body{
@@ -11,16 +11,16 @@ const GlobalStyle = createGlobalStyle`
 
             background-color:  ${(props) => {
               if (props.darkMode) {
-                return "#1d2d50";
+                return '#1d2d50';
               }
-              if (props.chosenTimer === "pomodoro") {
-                return "#bc1212";
+              if (props.chosenTimer === 'pomodoro') {
+                return '#bc1212';
               }
-              if (props.chosenTimer === "shortBreak") {
-                return "#386B1F";
+              if (props.chosenTimer === 'shortBreak') {
+                return '#386B1F';
               }
-              if (props.chosenTimer === "longBreak") {
-                return "royalblue";
+              if (props.chosenTimer === 'longBreak') {
+                return 'royalblue';
               }
             }};
         font-family: 'Noto Sans JP', sans-serif;

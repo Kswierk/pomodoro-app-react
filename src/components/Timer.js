@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import * as actionTypes from "../store/actions";
-import alarm from "../assets/sounds/alarm.mp3";
-import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react';
+import * as actionTypes from '../store/actions';
+import alarm from '../assets/sounds/alarm.mp3';
+import PropTypes from 'prop-types';
 
-import { connect } from "react-redux";
-import styled from "styled-components";
-import { useInterval } from "../hooks/useInterval";
-import useSound from "use-sound";
+import { connect } from 'react-redux';
+import styled, { css } from 'styled-components';
+import { useInterval } from '../hooks/useInterval';
+import useSound from 'use-sound';
 
 const Wraper = styled.div`
   max-width: 430px;
@@ -23,13 +23,14 @@ const ButtonsWraper = styled.div`
   padding-top: 15px;
 `;
 
-const TimerSwitchButton = styled.button`
+const TimerSwitchButtonsSharedStyled = css`
   padding: 8px 15px;
   margin: 0 10px;
   text-transform: capitalize;
   border: none;
   border-radius: 4px;
-  background-color: transparent;
+  /* background-color: transparent; */
+
   color: #f3ecf1;
   cursor: pointer;
   z-index: 30;
@@ -37,6 +38,28 @@ const TimerSwitchButton = styled.button`
   &:focus {
     outline: none;
   }
+`;
+
+const PomoTimerButton = styled.button`
+  background-color: ${(props) =>
+    props.selectedTimer === 'pomodoro'
+      ? 'rgba(250, 230, 230, 0.5)'
+      : 'transparent'};
+  ${TimerSwitchButtonsSharedStyled}
+`;
+const ShortBreakButton = styled.button`
+  background-color: ${(props) =>
+    props.selectedTimer === 'shortBreak'
+      ? 'rgba(250, 230, 230, 0.5)'
+      : 'transparent'};
+  ${TimerSwitchButtonsSharedStyled}
+`;
+const LongBreakButton = styled.button`
+  background-color: ${(props) =>
+    props.selectedTimer === 'longBreak'
+      ? 'rgba(250, 230, 230, 0.5)'
+      : 'transparent'};
+  ${TimerSwitchButtonsSharedStyled}
 `;
 
 const Time = styled.div`
@@ -80,9 +103,9 @@ const Timer = (props) => {
   const [isTimerActive, setIsTimerActive] = useState(false);
 
   const decrementTime = () => {
-    if (props.selectedTimer === "pomodoro") {
+    if (props.selectedTimer === 'pomodoro') {
       return props.onDecrementTimer();
-    } else if (props.selectedTimer === "shortBreak") {
+    } else if (props.selectedTimer === 'shortBreak') {
       return props.onDecrementShortBreak();
     } else {
       return props.onDecrementLongBreak();
@@ -95,7 +118,7 @@ const Timer = (props) => {
   }, delay);
 
   const calculateTimeLeft = (chosenTimerTimeLeft) => {
-    let result = "";
+    let result = '';
     const seconds = chosenTimerTimeLeft % 60;
     const minutes = parseInt(chosenTimerTimeLeft / 60) % 60;
     function addLeadingZeroes(time) {
@@ -121,26 +144,24 @@ const Timer = (props) => {
   };
 
   const selectPomodoroTimer = () => {
-    props.onChoseTimer("pomodoro");
+    props.onChoseTimer('pomodoro');
   };
   const selectShortBreak = () => {
-    props.onChoseTimer("shortBreak");
+    props.onChoseTimer('shortBreak');
   };
   const selectLongBreak = () => {
-    props.onChoseTimer("longBreak");
+    props.onChoseTimer('longBreak');
   };
 
   const calculateChosenTime = () => {
-    if (props.selectedTimer === "pomodoro") {
+    if (props.selectedTimer === 'pomodoro') {
       return calculateTimeLeft(props.timeLeft);
-    } else if (props.selectedTimer === "shortBreak") {
+    } else if (props.selectedTimer === 'shortBreak') {
       return calculateTimeLeft(props.shortBreakTimeLeft);
     } else {
       return calculateTimeLeft(props.longBreakTimeLeft);
     }
   };
-
-  //sound effect functions
 
   const [play, { stop }] = useSound(alarm, { volume: 1 });
 
@@ -171,42 +192,45 @@ const Timer = (props) => {
     <>
       <Wraper>
         <ButtonsWraper>
-          <TimerSwitchButton
+          <PomoTimerButton
+            selectedTimer={props.selectedTimer}
             onClick={() => {
               selectPomodoroTimer();
               resetClockHandler();
             }}
           >
             pomodoro
-          </TimerSwitchButton>
-          <TimerSwitchButton
+          </PomoTimerButton>
+          <ShortBreakButton
+            selectedTimer={props.selectedTimer}
             onClick={() => {
               selectShortBreak();
               resetClockHandler();
             }}
           >
             short break
-          </TimerSwitchButton>
-          <TimerSwitchButton
+          </ShortBreakButton>
+          <LongBreakButton
+            selectedTimer={props.selectedTimer}
             onClick={() => {
               selectLongBreak();
               resetClockHandler();
             }}
           >
             long break
-          </TimerSwitchButton>
+          </LongBreakButton>
         </ButtonsWraper>
         <Time>{calculateChosenTime()}</Time>
         <StartStopButtonsWraper>
           <StartStopButton onClick={toggleClockHandler}>
-            {isTimerActive ? "stop" : "start"}
+            {isTimerActive ? 'stop' : 'start'}
           </StartStopButton>
           <StartStopButton onClick={resetClockHandler}>reset</StartStopButton>
         </StartStopButtonsWraper>
       </Wraper>
 
       <Goal>
-        {props.selectedTimer !== "pomodoro" ? "take a break" : "time to work"}
+        {props.selectedTimer !== 'pomodoro' ? 'take a break' : 'time to work'}
       </Goal>
     </>
   );
@@ -248,6 +272,6 @@ Timer.propTypes = {
   shortBreakTimeLeft: PropTypes.number,
   longBreakTime: PropTypes.number,
   longBreakTimeLeft: PropTypes.number,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);
