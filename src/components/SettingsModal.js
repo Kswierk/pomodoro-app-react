@@ -101,7 +101,7 @@ const Slider = styled.span`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: ${(props) => (props.switched ? '#ff6347' : '#ccc')};
+  background-color: ${(props) => (props.switched ? '#841F27' : '#ccc')};
   -webkit-transition: 0.2s;
   transition: 0.2s;
   border-radius: 34px;
