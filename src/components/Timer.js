@@ -9,22 +9,22 @@ import { useInterval } from '../hooks/useInterval';
 import useSound from 'use-sound';
 
 const Wraper = styled.div`
-  max-width: 430px;
+  max-width: 500px;
   margin: 0 auto;
   text-align: center;
   background-color: rgba(230, 230, 230, 0.4);
-  margin-top: 40px;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
 `;
 
 const ButtonsWraper = styled.div`
-  padding-top: 15px;
+  padding-top: 25px;
 `;
 
 const TimerSwitchButtonsSharedStyled = css`
-  padding: 8px 15px;
+  padding: 10px 17px;
   margin: 0 10px;
   text-transform: capitalize;
   border: none;
@@ -43,30 +43,31 @@ const TimerSwitchButtonsSharedStyled = css`
 const PomoTimerButton = styled.button`
   background-color: ${(props) =>
     props.selectedTimer === 'pomodoro'
-      ? 'rgba(250, 230, 230, 0.5)'
+      ? 'rgba(125, 125, 125, 0.5)'
       : 'transparent'};
   ${TimerSwitchButtonsSharedStyled}
 `;
 const ShortBreakButton = styled.button`
   background-color: ${(props) =>
     props.selectedTimer === 'shortBreak'
-      ? 'rgba(250, 230, 230, 0.5)'
+      ? 'rgba(125, 125, 125, 0.5)'
       : 'transparent'};
   ${TimerSwitchButtonsSharedStyled}
 `;
 const LongBreakButton = styled.button`
   background-color: ${(props) =>
     props.selectedTimer === 'longBreak'
-      ? 'rgba(250, 230, 230, 0.5)'
+      ? 'rgba(125, 125, 125, 0.5)'
       : 'transparent'};
   ${TimerSwitchButtonsSharedStyled}
 `;
 
 const Time = styled.div`
-  /* padding: 30px 0; */
+  padding: 15px 0;
   font-size: 7rem;
-  font-weight: 700;
-  color: #f3ecf1;
+  font-weight: 500;
+  color: #fdfdfd;
+  cursor: default;
 `;
 
 const StartStopButtonsWraper = styled.div`
@@ -74,16 +75,17 @@ const StartStopButtonsWraper = styled.div`
   justify-content: center;
 `;
 const StartStopButton = styled.button`
-  padding: 8px 30px;
-  margin: 0 10px 20px 10px;
+  padding: 10px 40px;
+  margin: 0 10px 30px 10px;
   cursor: pointer;
-  background-color: transparent;
-  color: #f3ecf1;
-  border: 1px solid #f3ecf1;
+  background-color: #fdfdfd;
+  /* color: red; */
+  border: none;
   border-radius: 4px;
+  font-size: 1.1rem;
   transition: 0.2s ease-in-out;
-  font-size: 1.2rem;
   text-transform: uppercase;
+  font-weight: 500;
 
   &:hover {
     transform: translateY(-3px);
@@ -94,6 +96,7 @@ const StartStopButton = styled.button`
 `;
 
 const Goal = styled.p`
+  margin: 35px 0;
   text-align: center;
   font-size: 1.4rem;
 `;

@@ -1,20 +1,23 @@
-import React, { useState } from "react";
-import TasksForm from "./TasksForm";
-import Task from "./Task";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import TasksForm from './TasksForm';
+import Task from './Task';
+import styled from 'styled-components';
 
 const Wraper = styled.div`
   max-width: 500px;
   min-height: 30vh;
   margin: 0 auto;
   border-radius: 4px;
-  color: #fff;
+  color: #fdfdfd;
   /* text-align: center; */
   /* background-color: rgba(230, 230, 230, 0.4); */
 `;
 
 const StyledHeader = styled.h1`
   text-align: center;
+  font-size: 2.5rem;
+  font-weight: 400;
+  text-transform: uppercase;
 `;
 
 function TasksList() {
@@ -56,7 +59,7 @@ function TasksList() {
 
   return (
     <Wraper>
-      <StyledHeader>Tasks</StyledHeader>
+      <StyledHeader>tasks</StyledHeader>
       <TasksForm onSubmit={addTask} />
       <Task
         tasks={tasks}

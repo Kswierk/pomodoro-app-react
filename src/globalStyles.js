@@ -14,22 +14,25 @@ const GlobalStyle = createGlobalStyle`
                 return '#1d2d50';
               }
               if (props.chosenTimer === 'pomodoro') {
-                return '#bc1212';
+                return '#841F27';
               }
               if (props.chosenTimer === 'shortBreak') {
-                return '#386B1F';
+                return '#2b5b06';
               }
               if (props.chosenTimer === 'longBreak') {
-                return 'royalblue';
+                return '#354E71';
               }
             }};
-        font-family: 'Noto Sans JP', sans-serif;
-    }
+font-family: 'Lora', serif;    }
     input:focus,
 select:focus,
 textarea:focus,
 button:focus {
     outline: none;
+}
+
+button{
+  font-family: 'Lora', serif;
 }
 `;
 

@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import * as actionTypes from "../store/actions";
-import { connect } from "react-redux";
-import PropTypes from 'prop-types'; 
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import * as actionTypes from '../store/actions';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import {BiLogIn} from 'react-icons/bi'
-import {FiSettings} from 'react-icons/fi'
-import SettingsModal from "./SettingsModal";
-import LoginModal from "./Auth/LoginModal";
-import fire from "../fire";
+import { BiLogIn } from 'react-icons/bi';
+import { FiSettings } from 'react-icons/fi';
+import SettingsModal from './SettingsModal';
+import LoginModal from './Auth/LoginModal';
+import fire from '../fire';
 
 const StyledNav = styled.nav`
   display: flex;
-  border-bottom: 1px solid #d55314;
-  color: #f3ecf1;
+  border-bottom: 1px solid #fdfdfd;
+  color: #fdfdfd;
   justify-content: space-around;
   align-items: center;
   max-width: 700px;
@@ -31,10 +31,10 @@ const StyledLi = styled.li`
 const StyledNavButton = styled.button`
   padding: 7px 30px;
   margin: 0 20px;
-  background-color: #386b1f;
+  background-color: rgba(176, 176, 176, 0.5);
   display: flex;
-  align-items:center;
-  color: #f3ecf1;
+  align-items: center;
+  color: #fdfdfd;
   border: none;
   border-radius: 4px;
   font-size: 0.8rem;
@@ -46,7 +46,7 @@ const SettingsIcon = styled(FiSettings)`
 `;
 
 const LoginIcon = styled(BiLogIn)`
-   font-size: 1rem;
+  font-size: 1rem;
   margin-right: 5px;
   color: white;
 `;
@@ -60,11 +60,11 @@ const Navbar = (props) => {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
         // clearInputs();
-        console.log("logged in");
+        console.log('logged in');
         props.onCloseLoginModal();
         props.onSetUser(user);
       } else {
-        props.onSetUser("");
+        props.onSetUser('');
       }
     });
   };
@@ -81,20 +81,23 @@ const Navbar = (props) => {
       {props.isLoginModalOpen ? <LoginModal /> : null}
 
       <StyledNav>
-        <div>PomodoroFocused</div>
+        <div>pomodoro</div>
         <StyledUl>
           <StyledLi>
             <StyledNavButton onClick={props.onToggleSettingsModal}>
-            <SettingsIcon/>settings
+              <SettingsIcon />
+              Settings
             </StyledNavButton>
           </StyledLi>
           <StyledLi>
             {/* <StyledNavButton onClick={props.onToggleLoginModal}> */}
             {props.user ? (
-              <StyledNavButton onClick={handleLogout}><LoginIcon/> logout</StyledNavButton>
+              <StyledNavButton onClick={handleLogout}>
+                <LoginIcon /> Logout
+              </StyledNavButton>
             ) : (
               <StyledNavButton onClick={props.onToggleLoginModal}>
-               <LoginIcon/>  login
+                <LoginIcon /> Login
               </StyledNavButton>
             )}
             {/* </StyledNavButton> */}
@@ -134,6 +137,6 @@ Navbar.propTypes = {
   isModalBlocked: PropTypes.bool,
   onToggleSettingsModal: PropTypes.func,
   onToggleLoginModal: PropTypes.func,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

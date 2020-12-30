@@ -1,13 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import Navbar from "./components/Navbar";
-import Timer from "./components/Timer";
-import TasksList from "./components/Tasks/TasksList";
+import Navbar from './components/Navbar';
+import Timer from './components/Timer';
+import TasksList from './components/Tasks/TasksList';
 
-import GlobalStyles from "./globalStyles";
-// import Brief from "./components/Brief/Brief";
+import GlobalStyles from './globalStyles';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Wraper = styled.div`
   height: 100vh;
@@ -21,7 +20,6 @@ const Root = () => (
       <Timer />
       <TasksList />
     </Wraper>
-    {/* <Brief /> */}
   </>
 );
 

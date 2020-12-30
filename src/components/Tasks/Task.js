@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import TasksForm from "./TasksForm";
-import { RiCloseCircleLine } from "react-icons/ri";
-import { TiEdit } from "react-icons/ti";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import TasksForm from './TasksForm';
+import { RiCloseCircleLine } from 'react-icons/ri';
+import { TiEdit } from 'react-icons/ti';
+import styled from 'styled-components';
 
 const TaskWraper = styled.div`
   display: flex;
@@ -33,14 +33,14 @@ const DeleteIcon = styled(RiCloseCircleLine)`
 function Task({ tasks, completeTask, removeTask, updateTask }) {
   const [edit, setEdit] = useState({
     id: null,
-    value: "",
+    value: '',
   });
 
   const submitUpdate = (value) => {
     updateTask(edit.id, value);
     setEdit({
       id: null,
-      value: "",
+      value: '',
     });
   };
 

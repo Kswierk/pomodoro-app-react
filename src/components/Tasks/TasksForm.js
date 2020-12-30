@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import PropTypes from 'prop-types'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-import { BiPlusCircle, BiCheckCircle } from "react-icons/bi";
+import { BiPlusCircle, BiCheckCircle } from 'react-icons/bi';
 const StyledForm = styled.form`
   position: relative;
   /* margin: 0 auto; */
@@ -30,16 +30,16 @@ const StyledLabel = styled.label`
   bottom: 0px;
   left: 0;
   pointer-events: none;
-  border-bottom: 1px solid green;
+  border-bottom: 1px solid #fdfdfd;
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     height: 100%;
     width: 100%;
     left: 0;
     bottom: -1px;
-    border-bottom: 3px solid green;
+    border-bottom: 3px solid #fdfdfd;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
   }
@@ -92,7 +92,7 @@ const StyledButton = styled.button`
 `;
 
 function TasksList(props) {
-  const [input, setInput] = useState(props.edit ? props.edit.value : "");
+  const [input, setInput] = useState(props.edit ? props.edit.value : '');
 
   // const inputRef = useRef(null);
   // useEffect(() => {
@@ -110,7 +110,7 @@ function TasksList(props) {
       id: Math.floor(Math.random() * 1000000),
       text: input,
     });
-    setInput("");
+    setInput('');
   };
   return (
     <StyledForm autoComplete="off" onSubmit={(e) => handleSubmit(e)}>
@@ -153,9 +153,9 @@ function TasksList(props) {
   );
 }
 
-TasksList.propTypes = { 
-edit: PropTypes.object,
-onSubmit: PropTypes.func,
-}
+TasksList.propTypes = {
+  edit: PropTypes.object,
+  onSubmit: PropTypes.func,
+};
 
 export default TasksList;
