@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import PropTypes from 'prop-types'; 
+import React from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const InsideWraper = styled.div`
   display: flex;
@@ -23,6 +23,7 @@ const StyledInput = styled.input`
 
 const StyledLabel = styled.label`
   color: gray;
+  margin-bottom: 3px;
 `;
 
 const StyledButton = styled.button`
@@ -34,7 +35,7 @@ const StyledButton = styled.button`
 `;
 
 const StyledSpan = styled.span`
-color: green;
+  color: green;
   cursor: pointer;
   margin: 0 10px;
 `;
@@ -78,7 +79,9 @@ const Login = (props) => {
               <StyledButton onClick={handleLogin}>Sign in</StyledButton>
               <p>
                 Don&apos;t have an account ?
-                <StyledSpan onClick={() => setHasAccount(!hasAccount)}>Sign Up</StyledSpan>
+                <StyledSpan onClick={() => setHasAccount(!hasAccount)}>
+                  Sign Up
+                </StyledSpan>
               </p>
             </>
           ) : (
@@ -86,7 +89,9 @@ const Login = (props) => {
               <StyledButton onClick={handleSignup}>Sign up</StyledButton>
               <p>
                 Have an account?
-                <StyledSpan onClick={() => setHasAccount(!hasAccount)}>Sign In</StyledSpan>
+                <StyledSpan onClick={() => setHasAccount(!hasAccount)}>
+                  Sign In
+                </StyledSpan>
               </p>
             </>
           )}
@@ -98,15 +103,15 @@ const Login = (props) => {
 
 Login.propTypes = {
   email: PropTypes.string,
-  setEmail:PropTypes.func ,
-    password: PropTypes.string,
-    setPassword :PropTypes.func,
-    handleLogin: PropTypes.func,
-    handleSignup: PropTypes.func,
-    hasAccount: PropTypes.any,
-    setHasAccount: PropTypes.func,
-    emailError: PropTypes.string,
-    passwordError: PropTypes.string,
-}
+  setEmail: PropTypes.func,
+  password: PropTypes.string,
+  setPassword: PropTypes.func,
+  handleLogin: PropTypes.func,
+  handleSignup: PropTypes.func,
+  hasAccount: PropTypes.any,
+  setHasAccount: PropTypes.func,
+  emailError: PropTypes.string,
+  passwordError: PropTypes.string,
+};
 
 export default Login;

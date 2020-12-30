@@ -1,15 +1,12 @@
-import React, { useState } from "react";
-import * as actionTypes from "../store/actions";
+import React, { useState } from 'react';
+import * as actionTypes from '../store/actions';
 
-import PropTypes from 'prop-types'; 
-import { connect } from "react-redux";
-import styled from "styled-components";
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
 import { AiOutlineLock } from 'react-icons/ai';
 
-
-
-
-import Backdrop from "./Backdrop";
+import Backdrop from './Backdrop';
 
 const StyledModal = styled.div`
   background-color: #fff;
@@ -32,7 +29,7 @@ const QuitButton = styled.div`
   cursor: pointer;
   &:before,
   &:after {
-    content: "";
+    content: '';
     padding: 4px;
     position: absolute;
     width: 26px;
@@ -69,6 +66,7 @@ const FormWraper = styled.div`
 
 const StyledLabel = styled.label`
   color: gray;
+  margin-bottom: 3px;
 `;
 const StyledInput = styled.input`
   border-radius: 4px;
@@ -79,7 +77,7 @@ const StyledInput = styled.input`
 
 const DarkModeHeader = styled.h3`
   &::before {
-    content: "";
+    content: '';
     background-color: black;
     height: 1px;
     width: 100%;
@@ -91,8 +89,9 @@ const DarkModeHeader = styled.h3`
 const Switch = styled.label`
   position: relative;
   display: inline-block;
-  width: 60px;
+  width: 65px;
   height: 34px;
+  padding: 2px;
 `;
 
 const Slider = styled.span`
@@ -102,18 +101,18 @@ const Slider = styled.span`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: ${(props) => (props.switched ? "#ff6347" : "#ccc")};
+  background-color: ${(props) => (props.switched ? '#ff6347' : '#ccc')};
   -webkit-transition: 0.2s;
   transition: 0.2s;
   border-radius: 34px;
 
   &::before {
     position: absolute;
-    content: "";
+    content: '';
     height: 26px;
     width: 26px;
-    left: ${(props) => (props.switched ? "31px" : "4px")};
-    bottom: 4px;
+    left: ${(props) => (props.switched ? '39px' : '4px')};
+    bottom: 6px;
     background-color: white;
     -webkit-transition: 0.4s;
     transition: 0.4s;
@@ -122,7 +121,7 @@ const Slider = styled.span`
 `;
 
 const WrongValueWarning = styled.p`
-  display: ${(props) => (props.showWarning ? "block" : "none")};
+  display: ${(props) => (props.showWarning ? 'block' : 'none')};
   color: red;
 `;
 
@@ -145,8 +144,8 @@ const SaveButton = styled.button`
 `;
 
 const DarkModeFlexWraper = styled.div`
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
 `;
 
 const ClosedLock = styled(AiOutlineLock)`
@@ -155,7 +154,7 @@ const ClosedLock = styled(AiOutlineLock)`
 `;
 
 const StyledMessage = styled.p`
-  font-size: .6rem;
+  font-size: 0.6rem;
   margin-left: 10px;
 `;
 
@@ -164,7 +163,7 @@ const SettingsModal = (props) => {
     false
   );
 
-  const [isHovering, setIsHovering] = useState(false)
+  const [isHovering, setIsHovering] = useState(false);
 
   const checkProvidedTimeValue = (e) => {
     if (e.target.value < 1 || e.target.value > 59) {
@@ -176,9 +175,9 @@ const SettingsModal = (props) => {
     }
   };
 
- const handleMouseHover= () =>{
+  const handleMouseHover = () => {
     setIsHovering(!isHovering);
-  }
+  };
 
   return (
     <>
@@ -211,7 +210,7 @@ const SettingsModal = (props) => {
               />
             </InputsWraper>
             <InputsWraper>
-              <StyledLabel>short break</StyledLabel>
+              <StyledLabel>Short break</StyledLabel>
               <StyledInput
                 max="59"
                 min="1"
@@ -228,7 +227,7 @@ const SettingsModal = (props) => {
               />
             </InputsWraper>
             <InputsWraper>
-              <StyledLabel>long break</StyledLabel>
+              <StyledLabel>Long break</StyledLabel>
               <StyledInput
                 max="59"
                 min="1"
@@ -247,22 +246,28 @@ const SettingsModal = (props) => {
           </FormWraper>
           <div>
             <DarkModeHeader>Dark Mode</DarkModeHeader>
-           <DarkModeFlexWraper>
-            <Switch 
-             onMouseEnter={handleMouseHover}
-             onMouseLeave={handleMouseHover}>
-              <input disabled={!props.isLogged}
-                name="darkmode"
-                id="darkmode"
-                onClick={props.onChangeDarkMode}
-                type="checkbox"
+            <DarkModeFlexWraper>
+              <Switch
+                onMouseEnter={handleMouseHover}
+                onMouseLeave={handleMouseHover}
+              >
+                <input
+                  disabled={!props.isLogged}
+                  name="darkmode"
+                  id="darkmode"
+                  onClick={props.onChangeDarkMode}
+                  type="checkbox"
                 />
 
-              <Slider switched={props.darkMode}></Slider>
-            </Switch>
-             {props.isLogged ? null : <ClosedLock/>} 
-          {props.isLogged ? null : isHovering && <StyledMessage>Login to enable DarkMode</StyledMessage>}
-          </DarkModeFlexWraper>
+                <Slider switched={props.darkMode}></Slider>
+              </Switch>
+              {props.isLogged ? null : <ClosedLock />}
+              {props.isLogged
+                ? null
+                : isHovering && (
+                    <StyledMessage>Login to enable DarkMode</StyledMessage>
+                  )}
+            </DarkModeFlexWraper>
           </div>
         </ModalWraper>
         <SaveButtonWraper>
@@ -331,6 +336,6 @@ SettingsModal.propTypes = {
   isLogged: PropTypes.any,
   onChangeDarkMode: PropTypes.func,
   darkMode: PropTypes.bool,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsModal);
