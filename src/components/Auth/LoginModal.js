@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import * as actionTypes from "../../store/actions";
-import fire from "../../fire";
-import Backdrop from "../Backdrop";
-import PropTypes from 'prop-types'; 
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions';
+import fire from '../../fire';
+import Backdrop from '../Backdrop';
+import PropTypes from 'prop-types';
 
-import styled from "styled-components";
-import Login from "./Login";
+import styled from 'styled-components';
+import Login from './Login';
 
 const StyledModal = styled.div`
   background-color: #fff;
@@ -19,12 +19,13 @@ const StyledModal = styled.div`
   left: 50%;
   transform: translateX(-50%);
 `;
+
 const QuitButton = styled.div`
   border-radius: 6px;
   cursor: pointer;
   &:before,
   &:after {
-    content: "";
+    content: '';
     padding: 4px;
     position: absolute;
     width: 26px;
@@ -48,7 +49,17 @@ const QuitButton = styled.div`
   }
 `;
 
-const StyledHeader = styled.h3``;
+const StyledHeader = styled.h3`
+  margin: 40px 5% 20px 5%;
+
+  &::after {
+    content: '';
+    display: block;
+    margin-top: 20px;
+    width: 100%;
+    border-bottom: 1px solid gray;
+  }
+`;
 
 // const Form = styled.form`
 //   display: flex;
@@ -75,16 +86,16 @@ const StyledHeader = styled.h3``;
 // `;
 
 const ModalWraper = styled.div`
-  margin: 40px 5%;
+  /* margin: 40px 5%; */
 `;
 
 const LoginModal = (props) => {
   // const [user, setUser] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [hasAccount, setHasAccount] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [hasAccount, setHasAccount] = useState('');
 
   // const clearInputs = () => {
   //   setEmail("");
@@ -92,8 +103,8 @@ const LoginModal = (props) => {
   // };
 
   const clearErrors = () => {
-    setEmailError("");
-    setPasswordError("");
+    setEmailError('');
+    setPasswordError('');
   };
 
   const handleLogin = () => {
@@ -103,12 +114,12 @@ const LoginModal = (props) => {
       .signInWithEmailAndPassword(email, password)
       .catch((err) => {
         switch (err.code) {
-          case "auth/invalid-email":
-          case "auth/user-disabled":
-          case "auth/user-not-found":
+          case 'auth/invalid-email':
+          case 'auth/user-disabled':
+          case 'auth/user-not-found':
             setEmailError(err.message);
             break;
-          case "auth/wrong-password":
+          case 'auth/wrong-password':
             setPasswordError(err.message);
             break;
         }
@@ -126,35 +137,16 @@ const LoginModal = (props) => {
       .createUserWithEmailAndPassword(email, password)
       .catch((err) => {
         switch (err.code) {
-          case "auth/email-already-in-use":
-          case "auth/invalid-email":
+          case 'auth/email-already-in-use':
+          case 'auth/invalid-email':
             setEmailError(err.message);
             break;
-          case "auth/weak-password":
+          case 'auth/weak-password':
             setPasswordError(err.message);
             break;
         }
       });
   };
-
-  // const handleLogout = () => {
-  //   fire.auth().signOut();
-  // };
-
-  // const authListener = () => {
-  //   fire.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //       clearInputs();
-  //       props.onSetUser(user);
-  //     } else {
-  //       props.onSetUser("");
-  //     }
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   authListener();
-  // }, []);
 
   return (
     <>
@@ -162,12 +154,7 @@ const LoginModal = (props) => {
         <QuitButton onClick={props.onCloseLogin}></QuitButton>
         <ModalWraper>
           <StyledHeader>Login</StyledHeader>
-          <hr />
-          {/* <Form onSubmit={() => console.log("submitted")}>
-            <StyledInput placeholder="Email" />
-            <StyledInput placeholder="Password" />
-            <StyledButton type="submit">Login</StyledButton>
-  </Form> */}
+          {/* <hr /> */}
           <Login
             email={email}
             setEmail={setEmail}
@@ -206,6 +193,6 @@ const mapDispatchToProps = (dispatch) => {
 
 LoginModal.propTypes = {
   onCloseLogin: PropTypes.func,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);

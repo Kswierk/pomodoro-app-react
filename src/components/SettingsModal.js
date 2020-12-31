@@ -101,7 +101,7 @@ const Slider = styled.span`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: ${(props) => (props.switched ? '#841F27' : '#ccc')};
+  background-color: ${(props) => (props.switched ? '#841F27' : 'lightgray')};
   -webkit-transition: 0.2s;
   transition: 0.2s;
   border-radius: 34px;
@@ -127,7 +127,7 @@ const WrongValueWarning = styled.p`
 
 const SaveButtonWraper = styled.div`
   height: 60px;
-  background-color: #ddd;
+  background-color: lightgray;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -141,6 +141,8 @@ const SaveButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   outline: none;
+  text-transform: capitalize;
+  background-color: #fff;
 `;
 
 const DarkModeFlexWraper = styled.div`
@@ -154,7 +156,7 @@ const ClosedLock = styled(AiOutlineLock)`
 `;
 
 const StyledMessage = styled.p`
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   margin-left: 10px;
 `;
 
@@ -186,7 +188,7 @@ const SettingsModal = (props) => {
         <ModalWraper>
           <h3>Settings</h3>
           <hr />
-          <h3>Set custom time(minutes)</h3>
+          <h3>Set custom time (minutes)</h3>
           <WrongValueWarning showWarning={isProvidedTimeValueWrong}>
             please enter a value between 1 and 59
           </WrongValueWarning>

@@ -12,6 +12,8 @@ const SignInWraper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #ddd;
+  border-radius: 0 0 4px 4px;
 `;
 
 const StyledInput = styled.input`
@@ -19,19 +21,22 @@ const StyledInput = styled.input`
   border: none;
   background-color: lightgray;
   padding: 8px;
+  margin: 3px 5%;
 `;
 
 const StyledLabel = styled.label`
   color: gray;
-  margin-bottom: 3px;
+  margin: 3px 5%;
 `;
 
 const StyledButton = styled.button`
   padding: 0.4rem 1.4rem;
+  margin-top: 15px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   outline: none;
+  background-color: #fff;
 `;
 
 const StyledSpan = styled.span`

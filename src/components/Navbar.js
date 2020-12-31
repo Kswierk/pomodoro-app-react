@@ -81,7 +81,7 @@ const Navbar = (props) => {
       {props.isLoginModalOpen ? <LoginModal /> : null}
 
       <StyledNav>
-        <div>pomodoro</div>
+        <div>pomoDorro</div>
         <StyledUl>
           <StyledLi>
             <StyledNavButton onClick={props.onToggleSettingsModal}>
