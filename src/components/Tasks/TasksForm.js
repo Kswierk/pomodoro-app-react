@@ -5,10 +5,7 @@ import PropTypes from 'prop-types';
 import { BiPlusCircle, BiCheckCircle } from 'react-icons/bi';
 const StyledForm = styled.form`
   position: relative;
-  /* margin: 0 auto; */
-  /* background-color: #eee; */
   display: flex;
-  /* align-items: center; */
   justify-content: space-between;
   margin: 0 30px 20px 30px;
   overflow: hidden;
@@ -94,11 +91,6 @@ const StyledButton = styled.button`
 function TasksList(props) {
   const [input, setInput] = useState(props.edit ? props.edit.value : '');
 
-  // const inputRef = useRef(null);
-  // useEffect(() => {
-  //   inputRef.current.focus();
-  // });
-
   const handleChange = (e) => {
     setInput(e.target.value);
   };
@@ -121,7 +113,6 @@ function TasksList(props) {
             value={input}
             onChange={handleChange}
             name="text"
-            // ref={inputRef}
             required
           ></StyledInput>
           <StyledLabel>
@@ -138,7 +129,6 @@ function TasksList(props) {
             value={input}
             onChange={handleChange}
             name="text"
-            // ref={inputRef}
             required
           ></StyledInput>
           <StyledLabel>

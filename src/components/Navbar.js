@@ -59,7 +59,6 @@ const Navbar = (props) => {
   const authListener = () => {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
-        // clearInputs();
         console.log('logged in');
         props.onCloseLoginModal();
         props.onSetUser(user);
@@ -90,7 +89,6 @@ const Navbar = (props) => {
             </StyledNavButton>
           </StyledLi>
           <StyledLi>
-            {/* <StyledNavButton onClick={props.onToggleLoginModal}> */}
             {props.user ? (
               <StyledNavButton onClick={handleLogout}>
                 <LoginIcon /> Logout
@@ -100,7 +98,6 @@ const Navbar = (props) => {
                 <LoginIcon /> Login
               </StyledNavButton>
             )}
-            {/* </StyledNavButton> */}
           </StyledLi>
         </StyledUl>
       </StyledNav>

@@ -29,7 +29,6 @@ const TimerSwitchButtonsSharedStyled = css`
   text-transform: capitalize;
   border: none;
   border-radius: 4px;
-  /* background-color: transparent; */
 
   color: #f3ecf1;
   cursor: pointer;
@@ -79,7 +78,6 @@ const StartStopButton = styled.button`
   margin: 0 10px 30px 10px;
   cursor: pointer;
   background-color: #fdfdfd;
-  /* color: red; */
   border: none;
   border-radius: 4px;
   font-size: 1.1rem;

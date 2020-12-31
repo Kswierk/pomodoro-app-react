@@ -61,46 +61,12 @@ const StyledHeader = styled.h3`
   }
 `;
 
-// const Form = styled.form`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   width: 100%;
-// `;
-
-// const StyledInput = styled.input`
-//   width: 80%;
-//   height: 30px;
-//   border: 1px solid gray;
-//   border-radius: 4px;
-//   margin: 10px auto;
-// `;
-
-// const StyledButton = styled.button`
-//   width: 30%;
-//   border: none;
-//   height: 30px;
-//   border-radius: 4px;
-//   background-color: #eee;
-//   cursor: pointer;
-// `;
-
-const ModalWraper = styled.div`
-  /* margin: 40px 5%; */
-`;
-
 const LoginModal = (props) => {
-  // const [user, setUser] = useState("");
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [hasAccount, setHasAccount] = useState('');
-
-  // const clearInputs = () => {
-  //   setEmail("");
-  //   setPassword("");
-  // };
 
   const clearErrors = () => {
     setEmailError('');
@@ -126,10 +92,6 @@ const LoginModal = (props) => {
       });
   };
 
-  // if (props.user) {
-  //   props.onLogin();
-  // }
-
   const handleSignup = () => {
     clearErrors();
     fire
@@ -152,22 +114,19 @@ const LoginModal = (props) => {
     <>
       <StyledModal>
         <QuitButton onClick={props.onCloseLogin}></QuitButton>
-        <ModalWraper>
-          <StyledHeader>Login</StyledHeader>
-          {/* <hr /> */}
-          <Login
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-            handleLogin={handleLogin}
-            handleSignup={handleSignup}
-            hasAccount={hasAccount}
-            setHasAccount={setHasAccount}
-            emailError={emailError}
-            passwordError={passwordError}
-          />
-        </ModalWraper>
+        <StyledHeader>Login</StyledHeader>
+        <Login
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          handleLogin={handleLogin}
+          handleSignup={handleSignup}
+          hasAccount={hasAccount}
+          setHasAccount={setHasAccount}
+          emailError={emailError}
+          passwordError={passwordError}
+        />
       </StyledModal>
       <Backdrop />
     </>
