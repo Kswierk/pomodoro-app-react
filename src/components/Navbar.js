@@ -29,8 +29,8 @@ const StyledLi = styled.li`
 `;
 
 const StyledNavButton = styled.button`
-  padding: 7px 30px;
-  margin: 0 20px;
+  padding: 3px 10px;
+  margin: 0 10px;
   background-color: rgba(176, 176, 176, 0.5);
   display: flex;
   align-items: center;
@@ -39,6 +39,12 @@ const StyledNavButton = styled.button`
   border-radius: 4px;
   font-size: 0.8rem;
   cursor: pointer;
+
+  @media (min-width: 485px) {
+    padding: 7px 30px;
+
+    margin: 0 20px;
+  }
 `;
 const SettingsIcon = styled(FiSettings)`
   font-size: 1rem;

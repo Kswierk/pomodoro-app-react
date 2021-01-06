@@ -10,13 +10,17 @@ import useSound from 'use-sound';
 
 const Wraper = styled.div`
   max-width: 500px;
-  margin: 0 auto;
+  margin: 0 10px;
   text-align: center;
   background-color: rgba(230, 230, 230, 0.4);
   margin-top: 60px;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
+
+  @media (min-width: 485px) {
+    margin: 0 auto;
+  }
 `;
 
 const ButtonsWraper = styled.div`
@@ -24,7 +28,6 @@ const ButtonsWraper = styled.div`
 `;
 
 const TimerSwitchButtonsSharedStyled = css`
-  padding: 10px 17px;
   margin: 0 10px;
   text-transform: capitalize;
   border: none;
@@ -36,6 +39,10 @@ const TimerSwitchButtonsSharedStyled = css`
 
   &:focus {
     outline: none;
+  }
+
+  @media (min-width: 485px) {
+    padding: 10px 17px;
   }
 `;
 
