@@ -132,7 +132,7 @@ function TasksList(props) {
             required
           ></StyledInput>
           <StyledLabel>
-            <StyledSpan>Add task</StyledSpan>
+            <StyledSpan>Add note</StyledSpan>
           </StyledLabel>
           <StyledButton>
             <AddIcon />

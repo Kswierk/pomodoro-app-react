@@ -57,7 +57,7 @@ function TasksList() {
 
   return (
     <Wraper>
-      <StyledHeader>tasks</StyledHeader>
+      <StyledHeader>notes</StyledHeader>
       <TasksForm onSubmit={addTask} />
       <Task
         tasks={tasks}
