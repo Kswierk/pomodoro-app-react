@@ -10,16 +10,15 @@ import useSound from 'use-sound';
 
 const Wraper = styled.div`
   max-width: 500px;
-  margin: 0 10px;
+  margin: 60px 10px;
   text-align: center;
   background-color: rgba(230, 230, 230, 0.4);
-  margin-top: 60px;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
 
   @media (min-width: 485px) {
-    margin: 0 auto;
+    margin: 60px auto;
   }
 `;
 
