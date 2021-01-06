@@ -97,6 +97,7 @@ const Goal = styled.p`
   margin: 35px 0;
   text-align: center;
   font-size: 1.4rem;
+  color: #fff;
 `;
 
 const Timer = (props) => {
