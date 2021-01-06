@@ -15,6 +15,7 @@ const Wraper = styled.div`
 const Root = () => (
   <>
     <GlobalStyles />
+
     <Wraper>
       <Navbar />
       <Timer />

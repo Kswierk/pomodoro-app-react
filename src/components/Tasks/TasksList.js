@@ -9,8 +9,6 @@ const Wraper = styled.div`
   margin: 0 auto;
   border-radius: 4px;
   color: #fdfdfd;
-  /* text-align: center; */
-  /* background-color: rgba(230, 230, 230, 0.4); */
 `;
 
 const StyledHeader = styled.h1`
