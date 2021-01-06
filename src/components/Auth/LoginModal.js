@@ -40,7 +40,6 @@ const QuitButton = styled.div`
     -webkit-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
     transform: rotate(45deg);
-    /* left: 1px; */
   }
   &:after {
     -webkit-transform: rotate(-45deg);

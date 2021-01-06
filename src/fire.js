@@ -11,6 +11,5 @@ var firebaseConfig = {
   measurementId: 'G-GW385EY845',
 };
 const fire = firebase.initializeApp(firebaseConfig);
-// firebase.analytics();
 
 export default fire;
