@@ -28,6 +28,7 @@ const ButtonsWraper = styled.div`
 
 const TimerSwitchButtonsSharedStyled = css`
   margin: 0 10px;
+  padding: 5px 9px;
   text-transform: capitalize;
   border: none;
   border-radius: 4px;
@@ -132,7 +133,9 @@ const Timer = (props) => {
     function addLeadingZeroes(time) {
       return time < 10 ? `0${time}` : time;
     }
-    result += `${addLeadingZeroes(minutes)}:${addLeadingZeroes(seconds)}`;
+    result += `${addLeadingZeroes(minutes)}:${addLeadingZeroes(
+      seconds
+    )}`;
     return result;
   };
 
@@ -233,12 +236,16 @@ const Timer = (props) => {
           <StartStopButton onClick={toggleClockHandler}>
             {isTimerActive ? 'stop' : 'start'}
           </StartStopButton>
-          <StartStopButton onClick={resetClockHandler}>reset</StartStopButton>
+          <StartStopButton onClick={resetClockHandler}>
+            reset
+          </StartStopButton>
         </StartStopButtonsWraper>
       </Wraper>
 
       <Goal>
-        {props.selectedTimer !== 'pomodoro' ? 'take a break' : 'time to work'}
+        {props.selectedTimer !== 'pomodoro'
+          ? 'take a break'
+          : 'time to work'}
       </Goal>
     </>
   );
@@ -258,13 +265,17 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onSetTimer: () => dispatch({ type: actionTypes.SET_TIMER }),
     onResetTimer: () => dispatch({ type: actionTypes.RESET_TIMER }),
-    onDecrementTimer: () => dispatch({ type: actionTypes.DECREMENT_TIMER }),
+    onDecrementTimer: () =>
+      dispatch({ type: actionTypes.DECREMENT_TIMER }),
     onDecrementShortBreak: () =>
       dispatch({ type: actionTypes.DECREMENT_SHORTBREAK }),
     onDecrementLongBreak: () =>
       dispatch({ type: actionTypes.DECREMENT_LONGBREAK }),
     onChoseTimer: (selectedTimer) =>
-      dispatch({ type: actionTypes.CHOOSE_TIMER, payload: selectedTimer }),
+      dispatch({
+        type: actionTypes.CHOOSE_TIMER,
+        payload: selectedTimer,
+      }),
   };
 };
 
