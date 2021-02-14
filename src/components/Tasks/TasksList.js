@@ -9,6 +9,7 @@ const Wraper = styled.div`
   margin: 0 auto;
   border-radius: 4px;
   color: #fdfdfd;
+  padding-bottom: 15px;
 `;
 
 const StyledHeader = styled.h1`

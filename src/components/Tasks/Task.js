@@ -8,7 +8,7 @@ const TaskWraper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 5px 30px;
+  margin: 7px 30px;
   padding: 0.3rem;
   border-radius: 4px;
   background-color: rgba(230, 230, 230, 0.4);
@@ -54,7 +54,9 @@ function Task({ tasks, completeTask, removeTask, updateTask }) {
       </StyledTask>
       <div>
         <DeleteIcon onClick={() => removeTask(task.id)} />
-        <EditIcon onClick={() => setEdit({ id: task.id, value: task.text })} />
+        <EditIcon
+          onClick={() => setEdit({ id: task.id, value: task.text })}
+        />
       </div>
     </TaskWraper>
   ));
